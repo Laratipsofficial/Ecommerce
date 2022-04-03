@@ -4,22 +4,18 @@ import BreezeGuestLayout from '@/Layouts/Guest.vue';
 import BreezeInput from '@/Components/Input.vue';
 import BreezeLabel from '@/Components/Label.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-
-const props = defineProps({
-    email: String,
-    token: String,
-});
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
-    token: props.token,
-    email: props.email,
+    name: '',
+    email: '',
     password: '',
     password_confirmation: '',
+    terms: false,
 });
 
 const submit = () => {
-    form.post(route('password.update'), {
+    form.post(route('admin.register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -27,14 +23,19 @@ const submit = () => {
 
 <template>
     <BreezeGuestLayout>
-        <Head title="Reset Password" />
+        <Head title="Register" />
 
         <BreezeValidationErrors class="mb-4" />
 
         <form @submit.prevent="submit">
             <div>
+                <BreezeLabel for="name" value="Name" />
+                <BreezeInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
+            </div>
+
+            <div class="mt-4">
                 <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
+                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
             </div>
 
             <div class="mt-4">
@@ -48,8 +49,12 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
+                <Link :href="route('admin.login')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    Already registered?
+                </Link>
+
+                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Register
                 </BreezeButton>
             </div>
         </form>
