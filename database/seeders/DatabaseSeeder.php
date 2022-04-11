@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin@admin.com'),
             'name' => 'Admin',
         ]);
+
+        $this->call(RolesSeeder::class);
     }
 }
