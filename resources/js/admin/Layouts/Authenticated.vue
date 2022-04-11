@@ -30,6 +30,9 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                                     Dashboard
                                 </BreezeNavLink>
+                                <BreezeNavLink :href="route('admin.roles.index')" :active="route().current('admin.roles.index')">
+                                    Roles
+                                </BreezeNavLink>
                             </div>
                         </div>
 
@@ -103,7 +106,9 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <div class="py-12">
+                    <slot />
+                </div>
             </main>
         </div>
     </div>

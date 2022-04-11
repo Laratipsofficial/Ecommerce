@@ -6,18 +6,18 @@ import { Head } from '@inertiajs/inertia-vue3';
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Roles" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+                Roles
             </h2>
         </template>
 
           <Container>
               <Card>
-                  Dashboard
+                  Roles
               </Card>
           </Container>
     </BreezeAuthenticatedLayout>
