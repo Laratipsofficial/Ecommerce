@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\RolesRequest;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,5 +36,36 @@ class RolesController extends Controller
                 ],
             ],
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Role/Create', [
+            'edit' => false,
+            'title' => 'Add Role',
+        ]);
+    }
+
+    public function store(RolesRequest $request)
+    {
+        Role::create($request->validated());
+
+        return redirect()->route('admin.roles.index')->with('success', 'Role created successfully.');
+    }
+
+    public function edit(Role $role)
+    {
+        return Inertia::render('Role/Create', [
+            'edit' => true,
+            'title' => 'Edit Role',
+            'role' => new RoleResource($role),
+        ]);
+    }
+
+    public function update(RolesRequest $request, Role $role)
+    {
+        $role->update($request->validated());
+
+        return redirect()->route('admin.roles.index')->with('success', 'Role updated successfully.');
     }
 }
