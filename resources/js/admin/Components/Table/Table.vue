@@ -1,5 +1,6 @@
 <script setup>
 import Th from "@/Components/Table/Th.vue";
+import Td from "@/Components/Table/Td.vue";
 
 defineProps({
     headers: {
@@ -31,6 +32,11 @@ defineProps({
                             v-for="item in items.data"
                             :key="item.id">
                             <slot :item="item"></slot>
+                        </tr>
+                        <tr v-if="items.data.length === 0">
+                            <Td :colspan="headers.length">
+                                No data available.
+                            </Td>
                         </tr>
                     </tbody>
                 </table>
