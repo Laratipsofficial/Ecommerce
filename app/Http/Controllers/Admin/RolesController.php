@@ -53,6 +53,7 @@ class RolesController extends Controller
         return Inertia::render('Role/Create', [
             'edit' => false,
             'title' => 'Add Role',
+            'routeResourceName' => $this->routeResourceName,
         ]);
     }
 
@@ -68,7 +69,8 @@ class RolesController extends Controller
         return Inertia::render('Role/Create', [
             'edit' => true,
             'title' => 'Edit Role',
-            'role' => new RoleResource($role),
+            'item' => new RoleResource($role),
+            'routeResourceName' => $this->routeResourceName,
         ]);
     }
 
