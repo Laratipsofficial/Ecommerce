@@ -8,6 +8,7 @@ import Button from "@/Components/Button.vue";
 import BreezeInput from "@/Components/Input.vue";
 import BreezeLabel from "@/Components/Label.vue";
 import InputError from "@/Components/InputError.vue";
+import Permissions from "./Permissions.vue";
 
 const props = defineProps({
     edit: {
@@ -24,7 +25,10 @@ const props = defineProps({
     routeResourceName: {
         type: String,
         required: true,
-    }
+    },
+    permissions: {
+        type: Array,
+    },
 });
 
 const form = useForm({
@@ -33,7 +37,11 @@ const form = useForm({
 
 const submit = () => {
     props.edit
-        ? form.put(route(`admin.${props.routeResourceName}.update`, { id: props.item.id }))
+        ? form.put(
+              route(`admin.${props.routeResourceName}.update`, {
+                  id: props.item.id,
+              })
+          )
         : form.post(route(`admin.${props.routeResourceName}.store`));
 };
 
@@ -64,8 +72,7 @@ onMounted(() => {
                         <BreezeInput type="text"
                                      class="mt-1 block w-full"
                                      v-model="form.name"
-                                     required
-                                     autofocus />
+                                     required />
 
                         <InputError class="mt-1"
                                     :message="form.errors.name" />
@@ -79,5 +86,9 @@ onMounted(() => {
                 </form>
             </Card>
         </Container>
+
+        <Permissions class="mt-6"
+                     :role="item"
+                     :permissions="permissions" />
     </BreezeAuthenticatedLayout>
 </template>
