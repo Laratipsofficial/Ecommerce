@@ -45,6 +45,9 @@ class PermissionsController extends Controller
             ],
             'filters' => (object) $request->all(),
             'routeResourceName' => $this->routeResourceName,
+            'can' => [
+                'create' => $request->user()->can('create permission'),
+            ],
         ]);
     }
 

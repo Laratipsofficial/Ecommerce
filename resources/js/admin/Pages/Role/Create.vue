@@ -87,7 +87,8 @@ onMounted(() => {
             </Card>
         </Container>
 
-        <Permissions class="mt-6"
+        <Permissions v-if="edit"
+                     class="mt-6"
                      :role="item"
                      :permissions="permissions" />
     </BreezeAuthenticatedLayout>

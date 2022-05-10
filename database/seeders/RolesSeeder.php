@@ -23,9 +23,22 @@ class RolesSeeder extends Seeder
 
         $editor = Role::create(['name' => 'Editor']);
 
-        User::find(2)->assignRole($editor);
+        $editor = User::find(2)->assignRole($editor);
 
-        Permission::create(['name' => 'view users']);
+        Permission::create(['name' => 'view permissions module']);
+        Permission::create(['name' => 'view permissions list']);
+        Permission::create(['name' => 'create permission']);
+        Permission::create(['name' => 'edit permission']);
+        Permission::create(['name' => 'delete permission']);
+
+        Permission::create(['name' => 'view roles module']);
+        Permission::create(['name' => 'view roles list']);
+        Permission::create(['name' => 'create role']);
+        Permission::create(['name' => 'edit role']);
+        Permission::create(['name' => 'delete role']);
+
+        Permission::create(['name' => 'view users module']);
+        Permission::create(['name' => 'view users list']);
         Permission::create(['name' => 'create users']);
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'delete users']);

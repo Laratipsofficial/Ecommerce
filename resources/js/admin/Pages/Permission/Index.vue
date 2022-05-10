@@ -38,6 +38,7 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    can: Object,
 });
 
 const {
@@ -70,7 +71,8 @@ const { filters, isLoading } = useFilters({
         <Container>
             <Filters v-model="filters" />
 
-            <Button :href="route(`admin.${routeResourceName}.create`)">Add New</Button>
+            <Button v-if="can.create"
+                    :href="route(`admin.${routeResourceName}.create`)">Add New</Button>
 
             <Card class="mt-4"
                   :is-loading="isLoading">
@@ -85,6 +87,8 @@ const { filters, isLoading } = useFilters({
                         </Td>
                         <Td>
                             <Actions :edit-link="route(`admin.${routeResourceName}.edit`, {id: item.id})"
+                                     :show-edit="item.can.edit"
+                                     :show-delete="item.can.delete"
                                      @deleteClicked="showDeleteModal(item)" />
                         </Td>
                     </template>
