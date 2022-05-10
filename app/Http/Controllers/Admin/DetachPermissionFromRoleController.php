@@ -8,6 +8,11 @@ use Spatie\Permission\Models\Permission;
 
 class DetachPermissionFromRoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:edit role');
+    }
+
     public function __invoke(Request $request)
     {
         $permission = Permission::findById($request->permissionId);

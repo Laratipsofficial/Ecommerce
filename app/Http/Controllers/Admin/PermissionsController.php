@@ -14,6 +14,14 @@ class PermissionsController extends Controller
 {
     private string $routeResourceName = 'permissions';
 
+    public function __construct()
+    {
+        $this->middleware('can:view permissions list')->only('index');
+        $this->middleware('can:create permission')->only(['create', 'store']);
+        $this->middleware('can:edit permission')->only(['edit', 'update']);
+        $this->middleware('can:delete permission')->only('destroy');
+    }
+
     public function index(Request $request)
     {
         $permissions = Permission::query()

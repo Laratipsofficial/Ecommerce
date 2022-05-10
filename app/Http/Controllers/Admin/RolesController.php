@@ -16,6 +16,14 @@ class RolesController extends Controller
 {
     private string $routeResourceName = 'roles';
 
+    public function __construct()
+    {
+        $this->middleware('can:view roles list')->only('index');
+        $this->middleware('can:create role')->only(['create', 'store']);
+        $this->middleware('can:edit role')->only(['edit', 'update']);
+        $this->middleware('can:delete role')->only('destroy');
+    }
+
     public function index(Request $request)
     {
         $roles = Role::query()
@@ -77,7 +85,7 @@ class RolesController extends Controller
             'title' => 'Edit Role',
             'item' => new RoleResource($role),
             'routeResourceName' => $this->routeResourceName,
-            'permissions' => PermissionResource::collection(Permission::get(['id', 'name'])),
+            'permissions' => PermissionResource::collection(Permission::oldest('id')->get(['id', 'name'])),
         ]);
     }
 
