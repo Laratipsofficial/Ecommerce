@@ -38,9 +38,9 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'delete role']);
 
         Permission::create(['name' => 'view users module']);
-        Permission::create(['name' => 'view users list']);
-        Permission::create(['name' => 'create users']);
-        Permission::create(['name' => 'edit users']);
-        Permission::create(['name' => 'delete users']);
+        Permission::create(['name' => 'view user list']);
+        Permission::create(['name' => 'create user']);
+        Permission::create(['name' => 'edit user']);
+        Permission::create(['name' => 'delete user']);
     }
 }

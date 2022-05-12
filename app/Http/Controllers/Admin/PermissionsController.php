@@ -72,7 +72,7 @@ class PermissionsController extends Controller
     {
         Permission::create($request->validated());
 
-        return redirect()->route('admin.permissions.index')->with('success', 'Permission created successfully.');
+        return redirect()->route("admin.{$this->routeResourceName}.index")->with('success', 'Permission created successfully.');
     }
 
     public function edit(Permission $permission)
@@ -89,7 +89,7 @@ class PermissionsController extends Controller
     {
         $permission->update($request->validated());
 
-        return redirect()->route('admin.permissions.index')->with('success', 'Permission updated successfully.');
+        return redirect()->route("admin.{$this->routeResourceName}.index")->with('success', 'Permission updated successfully.');
     }
 
     public function destroy(Permission $permission)

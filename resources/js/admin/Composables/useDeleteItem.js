@@ -17,6 +17,8 @@ export default function (params) {
     Inertia.delete(
       route(`admin.${routeResourceName}.destroy`, { id: itemToDelete.value.id }),
       {
+        preserveScroll: true,
+        preserveState: true,
         onBefore: () => {
           isDeleting.value = true;
         },
