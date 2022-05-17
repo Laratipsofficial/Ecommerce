@@ -6,9 +6,18 @@ import Select from "@/Components/Select.vue";
 
 defineProps({
     modelValue: {},
-    type: {
+    items: Array,
+    itemText: {
         type: String,
-        default: "text",
+        default: "name",
+    },
+    itemValue: {
+        type: String,
+        default: "id",
+    },
+    withoutSelect: {
+        type: Boolean,
+        default: false,
     },
     label: {
         type: String,
@@ -29,6 +38,10 @@ defineProps({
         <Select class="mt-1"
                 :model-value="modelValue"
                 @update:model-value="$emit('update:modelValue', $event)"
+                :items="items"
+                :item-text="itemText"
+                :item-value="itemValue"
+                :without-select="withoutSelect"
                 v-bind="$attrs" />
 
         <InputError v-if="errorMessage"

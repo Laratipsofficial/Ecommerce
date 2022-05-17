@@ -35,6 +35,14 @@ class UsersController extends Controller
             ])
             ->with(['roles:roles.id,roles.name'])
             ->when($request->name, fn (Builder $builder, $name) => $builder->where('name', 'like', "%{$name}%"))
+            ->when($request->email, fn (Builder $builder, $email) => $builder->where('email', 'like', "%{$email}%"))
+            ->when(
+                $request->roleId,
+                fn (Builder $builder, $roleId) => $builder->whereHas(
+                    'roles',
+                    fn (Builder $builder) => $builder->where('roles.id', $roleId)
+                )
+            )
             ->latest('id')
             ->paginate(10);
 
@@ -65,6 +73,7 @@ class UsersController extends Controller
             ],
             'filters' => (object) $request->all(),
             'routeResourceName' => $this->routeResourceName,
+            'roles' => RoleResource::collection(Role::get(['id', 'name'])),
             'can' => [
                 'create' => $request->user()->can('create user'),
             ],
