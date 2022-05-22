@@ -12,6 +12,7 @@ import Button from "@/Components/Button.vue";
 import Modal from "@/Components/Modal.vue";
 import Label from "@/Components/Label.vue";
 import Input from "@/Components/Input.vue";
+import AddNew from "@/Components/AddNew.vue";
 import Filters from "./Filters.vue";
 
 import useDeleteItem from "@/Composables/useDeleteItem.js";
@@ -70,11 +71,15 @@ const { filters, isLoading } = useFilters({
         </template>
 
         <Container>
-            <Filters v-model="filters"
-                     :roles="roles" />
+            <AddNew>
+                <Button v-if="can.create"
+                        :href="route(`admin.${routeResourceName}.create`)">Add New</Button>
 
-            <Button v-if="can.create"
-                    :href="route(`admin.${routeResourceName}.create`)">Add New</Button>
+                <template #filters>
+                    <Filters v-model="filters"
+                             :roles="roles" />
+                </template>
+            </AddNew>
 
             <Card class="mt-4"
                   :is-loading="isLoading">
