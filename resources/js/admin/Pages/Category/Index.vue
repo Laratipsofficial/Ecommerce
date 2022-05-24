@@ -82,7 +82,8 @@ const { filters, isLoading } = useFilters({
             </AddNew>
 
             <Card class="mt-4"
-                  :is-loading="isLoading">
+                  :is-loading="isLoading"
+                  no-padding>
                 <Table :headers="headers"
                        :items="items">
                     <template v-slot="{ item }">

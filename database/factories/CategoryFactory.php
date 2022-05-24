@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
             'parent_id' => Category::factory(),
             'name' => $name,
             'slug' => Str::slug($name),
-            'active' => $this->faker->boolean(80),
+            'active' => $this->faker->boolean(70),
         ];
     }
 
