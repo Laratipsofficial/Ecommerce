@@ -22,7 +22,8 @@ defineProps({
                     <thead class="border-b">
                         <tr>
                             <Th v-for="header in headers"
-                                :key="header.label">
+                                :key="header.label"
+                                :class="`${header.classes} font-bold`">
                                 {{ header.label }}
                             </Th>
                         </tr>
