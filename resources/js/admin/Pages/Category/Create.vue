@@ -1,6 +1,6 @@
 <script setup>
 import { Head, useForm } from "@inertiajs/inertia-vue3";
-import { onMounted, watch } from "vue";
+import { watch } from "vue";
 
 import kebabCase from "lodash/kebabCase";
 import replace from "lodash/replace";
@@ -36,10 +36,10 @@ const props = defineProps({
 });
 
 const form = useForm({
-    name: "",
-    slug: "",
-    active: true,
-    parentId: "",
+    name: props.item.name ?? "",
+    slug: props.item.slug ?? "",
+    active: props.item.active ?? false,
+    parentId: props.item.parent_id ?? "",
 });
 
 watch(
@@ -60,15 +60,6 @@ const submit = () => {
           )
         : form.post(route(`admin.${props.routeResourceName}.store`));
 };
-
-onMounted(() => {
-    if (props.edit) {
-        form.name = props.item.name;
-        form.slug = props.item.slug;
-        form.active = props.item.active;
-        form.parentId = props.item.parent_id;
-    }
-});
 </script>
 
 <template>
