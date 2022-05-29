@@ -28,6 +28,14 @@ class ProductResource extends JsonResource
                 return $this->created_at->toDayDateTimeString();
             }),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+            'category_id' => $this->whenLoaded(
+                'categories',
+                fn () => $this->categories->firstWhere('parent_id', null)?->id,
+            ),
+            'sub_category_id' => $this->whenLoaded(
+                'categories',
+                fn () => $this->categories->firstWhere('parent_id', '!=', null)?->id,
+            ),
             'can' => [
                 'edit' => $request->user()?->can('edit product'),
                 'delete' => $request->user()?->can('delete product'),

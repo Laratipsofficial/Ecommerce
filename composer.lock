@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3bc3a8ec7feda4f885c4f65cc41ada4",
+    "content-hash": "325345777f30bf9c33b974b301c2b9e8",
     "packages": [
         {
             "name": "brick/math",
@@ -436,6 +436,57 @@
                 }
             ],
             "time": "2021-10-11T09:18:27+00:00"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "12ab42bd6e742c70c0a52f7b82477fcd44e64b75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/12ab42bd6e742c70c0a52f7b82477fcd44e64b75",
+                "reference": "12ab42bd6e742c70c0a52f7b82477fcd44e64b75",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ],
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "exclude-from-classmap": [
+                    "/library/HTMLPurifier/Language/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "support": {
+                "issues": "https://github.com/ezyang/htmlpurifier/issues",
+                "source": "https://github.com/ezyang/htmlpurifier/tree/v4.14.0"
+            },
+            "time": "2021-12-25T01:21:49+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2880,6 +2931,71 @@
                 }
             ],
             "time": "2022-05-16T12:09:59+00:00"
+        },
+        {
+            "name": "stevebauman/purify",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stevebauman/purify.git",
+                "reference": "e56289062ed8a25c78c88f35e9106f00d01369c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stevebauman/purify/zipball/e56289062ed8a25c78c88f35e9106f00d01369c1",
+                "reference": "e56289062ed8a25c78c88f35e9106f00d01369c1",
+                "shasum": ""
+            },
+            "require": {
+                "ezyang/htmlpurifier": "^4.9.0",
+                "illuminate/support": "~5.5|~6.0|~7.0|~8.0|~9.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.7|~4.0|~5.0|~6.0|~7.0",
+                "phpunit/phpunit": "~7.0|~8.0|~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Stevebauman\\Purify\\PurifyServiceProvider"
+                    ],
+                    "aliases": {
+                        "Purify": "Stevebauman\\Purify\\Facades\\Purify"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stevebauman\\Purify\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com"
+                }
+            ],
+            "description": "An HTML Purifier / Sanitizer for Laravel",
+            "keywords": [
+                "Purifier",
+                "clean",
+                "cleaner",
+                "html",
+                "laravel",
+                "purification",
+                "purify"
+            ],
+            "support": {
+                "issues": "https://github.com/stevebauman/purify/issues",
+                "source": "https://github.com/stevebauman/purify/tree/v4.0.1"
+            },
+            "time": "2022-01-21T21:41:41+00:00"
         },
         {
             "name": "symfony/console",
