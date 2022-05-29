@@ -13,6 +13,7 @@ import Modal from "@/Components/Modal.vue";
 import Label from "@/Components/Label.vue";
 import Input from "@/Components/Input.vue";
 import AddNew from "@/Components/AddNew.vue";
+import YesNoLabel from "@/Components/YesNoLabel.vue";
 import Filters from "./Filters.vue";
 
 import useDeleteItem from "@/Composables/useDeleteItem.js";
@@ -40,7 +41,7 @@ const props = defineProps({
         required: true,
     },
     can: Object,
-    rootCategories: Array,
+    categories: Array,
 });
 
 const {
@@ -53,7 +54,7 @@ const {
     routeResourceName: props.routeResourceName,
 });
 
-const { filters, isLoading, isFilled } = useFilters({
+const { filters, isLoading } = useFilters({
     filters: props.filters,
     routeResourceName: props.routeResourceName,
 });
@@ -71,13 +72,13 @@ const { filters, isLoading, isFilled } = useFilters({
         </template>
 
         <Container>
-            <AddNew :show="isFilled">
+            <AddNew>
                 <Button v-if="can.create"
                         :href="route(`admin.${routeResourceName}.create`)">Add New</Button>
 
                 <template #filters>
                     <Filters v-model="filters"
-                             :categories="rootCategories" />
+                             :categories="categories" />
                 </template>
             </AddNew>
 
@@ -88,21 +89,24 @@ const { filters, isLoading, isFilled } = useFilters({
                        :items="items">
                     <template v-slot="{ item }">
                         <Td>
-                            {{ item.name }}
+                            <div class="whitespace-pre-wrap w-64">
+                                {{ item.name }}
+                            </div>
+                        </Td>
+                        <Td class="text-right">
+                            {{ item.cost_price }}
+                        </Td>
+                        <Td class="text-right">
+                            {{ item.price }}
                         </Td>
                         <Td>
-                            <Button v-if="item.children_count>0"
-                                    :href="route(`admin.${routeResourceName}.index`, {parentId: item.id})"
-                                    small>
-                                {{ item.children_count }}
-                            </Button>
-                            <span v-else>{{ item.children_count }}</span>
+                            <YesNoLabel :active="item.show_on_slider" />
                         </Td>
                         <Td>
-                            <Button :color="item.active ? 'green' : 'red'"
-                                    small>
-                                {{ item.active ? 'Active' : 'Inactive' }}
-                            </Button>
+                            <YesNoLabel :active="item.featured" />
+                        </Td>
+                        <Td>
+                            <YesNoLabel :active="item.active" />
                         </Td>
                         <Td>
                             {{ item.created_at_formatted }}

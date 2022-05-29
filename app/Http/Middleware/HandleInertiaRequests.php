@@ -71,6 +71,12 @@ class HandleInertiaRequests extends Middleware
                     'isActive' => $request->routeIs('admin.categories.*'),
                     'isVisible' => $request->user()?->can('view categories module'),
                 ],
+                [
+                    'label' => 'Products',
+                    'url' => route('admin.products.index'),
+                    'isActive' => $request->routeIs('admin.products.*'),
+                    'isVisible' => $request->user()?->can('view products module'),
+                ],
             ],
         ]);
     }
