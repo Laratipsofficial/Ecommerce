@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\CategoryProduct;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\ServiceProvider;
@@ -32,10 +37,17 @@ class AppServiceProvider extends ServiceProvider
 
         Password::defaults(function () {
             $rule = Password::min(8);
-     
+
             return $this->app->isProduction()
-                        ? $rule->mixedCase()->number()->symbols()->uncompromised()
-                        : $rule;
+                ? $rule->mixedCase()->number()->symbols()->uncompromised()
+                : $rule;
         });
+
+        Relation::enforceMorphMap([
+            'category' => Category::class,
+            'category_product' => CategoryProduct::class,
+            'product' => Product::class,
+            'user' => User::class,
+        ]);
     }
 }

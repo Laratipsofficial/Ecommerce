@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DetachPermissionFromRoleController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UploadImagesController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UsersController::class);
     Route::resource('categories', CategoriesController::class);
     Route::resource('products', ProductsController::class);
+    Route::post('upload-images', UploadImagesController::class);
 });
 
 require __DIR__.'/auth.php';

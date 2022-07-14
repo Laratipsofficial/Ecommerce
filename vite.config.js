@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [
     laravel({
       input: ['resources/js/admin/app.js'],
+      refresh: true,
     }),
     vue({
       template: {
