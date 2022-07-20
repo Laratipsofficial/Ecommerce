@@ -24,7 +24,7 @@ const props = defineProps({
 
 onMounted(() => {
     let dropzone = new Dropzone("#image-upload", {
-        url: "/admin/upload-images",
+        url: route("admin.images.store"),
         headers: {
             "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']")
                 ?.content,

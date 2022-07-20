@@ -42,7 +42,7 @@ class ProductResource extends JsonResource
             ],
             'images' => $this->whenLoaded(
                 'media',
-                fn () => $this->media->map(
+                fn () => $this->getMedia()->map(
                     fn ($media) => [
                         'id' => $media->id,
                         'html' => $media->toHtml(),

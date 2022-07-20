@@ -14,6 +14,8 @@ import SelectGroup from "@/Components/SelectGroup.vue";
 import CheckboxGroup from "@/Components/CheckboxGroup.vue";
 import EditorGroup from "@/Components/EditorGroup.vue";
 import ImageUpload from "@/Components/ImageUpload.vue";
+import CrossIcon from "@/Components/Icons/Cross.vue";
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     edit: {
@@ -85,6 +87,14 @@ const submit = () => {
           )
         : form.post(route(`admin.${props.routeResourceName}.store`));
 };
+
+const maxUploadImageCount = 3;
+
+const deleteImage = (imageId) => {
+    if (!confirm("Are you sure you want to delete this image?")) return;
+
+    Inertia.post(route("admin.images.destroy", { id: imageId }));
+};
 </script>
 
 <template>
@@ -109,17 +119,22 @@ const submit = () => {
                                 <div class="grid grid-cols-3 gap-6">
                                     <div v-for="image in item.images"
                                          :key="image.id"
-                                         class="bg-gray-50 p-4 rounded-md">
+                                         class="bg-gray-50 p-4 rounded-md relative">
+                                        <button type="button"
+                                                class="absolute right-4 top-4 rounded-full p-2 transition-colors duration-200 hover:bg-red-500 hover:text-white"
+                                                @click.prevent="deleteImage(image.id)">
+                                            <CrossIcon class="w-6 h-6" />
+                                        </button>
                                         <div v-html="image.html"
                                              class="[&_img]:h-64 [&_img]:w-full [&_img]:object-contain"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <ImageUpload v-if="item.images.length < 3"
+                            <ImageUpload v-if="item.images.length < maxUploadImageCount"
                                          model-type="product"
                                          :model-id="item.id"
-                                         :maxFiles="3 - item.images.length" />
+                                         :maxFiles="maxUploadImageCount - item.images.length" />
                         </div>
 
                         <InputGroup label="Name"
