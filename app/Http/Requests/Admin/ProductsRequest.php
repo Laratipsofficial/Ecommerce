@@ -50,6 +50,10 @@ class ProductsRequest extends FormRequest
         $data['cost_price'] = $this->costPrice;
         $data['show_on_slider'] = $this->showOnSlider;
 
+        if (!$this->route('product')) {
+            $data['creator_id'] = $this->user()->id;
+        }
+
         return $data;
     }
 

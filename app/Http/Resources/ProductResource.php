@@ -37,8 +37,8 @@ class ProductResource extends JsonResource
                 fn () => $this->categories->firstWhere('parent_id', '!=', null)?->id,
             ),
             'can' => [
-                'edit' => $request->user()?->can('edit product'),
-                'delete' => $request->user()?->can('delete product'),
+                'edit' => $request->user()?->can('update', $this->resource),
+                'delete' => $request->user()?->can('delete', $this->resource),
             ],
             'images' => $this->whenLoaded(
                 'media',
@@ -48,7 +48,9 @@ class ProductResource extends JsonResource
                         'html' => $media->toHtml(),
                     ]
                 )
-            )
+            ),
+            'creator_id' => $this->whenNotNull('creator_id'),
+            'creator' => new UserResource($this->whenLoaded('creator')),
         ];
     }
 }
