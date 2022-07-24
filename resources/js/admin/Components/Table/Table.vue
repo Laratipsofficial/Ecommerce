@@ -1,6 +1,7 @@
 <script setup>
 import Th from "@/Components/Table/Th.vue";
 import Td from "@/Components/Table/Td.vue";
+import Pagination from "@/Components/Table/Pagination.vue";
 
 defineProps({
     headers: {
@@ -16,7 +17,7 @@ defineProps({
 
 <template>
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="inline-block min-w-full sm:px-6 lg:px-8">
             <div class="overflow-x-auto">
                 <table class="min-w-full">
                     <thead class="border-b">
@@ -43,5 +44,10 @@ defineProps({
                 </table>
             </div>
         </div>
+    </div>
+
+    <div v-if="items.meta.links.length>3"
+         class="py-4">
+        <Pagination :links="items.meta.links" />
     </div>
 </template>

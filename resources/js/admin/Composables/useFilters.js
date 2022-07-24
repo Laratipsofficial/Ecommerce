@@ -7,7 +7,9 @@ export default function (params) {
   const filters = ref(defaultFilters);
 
   const isFilled = computed(() => {
-    return Object.values(filters.value)
+    let { page, ...rest } = filters.value;
+
+    return Object.values(rest)
       .some(v => !["", null, undefined].includes(v))
   })
 
@@ -15,7 +17,10 @@ export default function (params) {
   const fetchItemsHandler = ref(null);
 
   function fetchItems() {
-    Inertia.get(route(`admin.${routeResourceName}.index`), filters.value, {
+    Inertia.get(route(`admin.${routeResourceName}.index`), {
+      ...filters.value,
+      page: 1,
+    }, {
       preserveState: true,
       preserveScroll: true,
       replace: true,
