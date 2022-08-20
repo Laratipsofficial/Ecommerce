@@ -34,7 +34,7 @@ const form = useForm({
     email: props.item.email ?? "",
     password: "",
     passwordConfirmation: "",
-    roleId: props.item.roles[0]?.id ?? "",
+    roleId: props.edit ? (props.item.roles[0]?.id ?? "") : "",
 });
 
 const submit = () => {
