@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\ServiceProvider;
 
@@ -49,5 +50,7 @@ class AppServiceProvider extends ServiceProvider
             'product' => Product::class,
             'user' => User::class,
         ]);
+
+        Blade::anonymousComponentNamespace('front.components', 'front');
     }
 }

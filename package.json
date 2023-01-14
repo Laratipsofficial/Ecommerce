@@ -1,9 +1,8 @@
 {
     "private": true,
     "scripts": {
-        "watch": "vite",
-        "dev": "vite build",
-        "prod": "vite build"
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.11.0",
@@ -27,6 +26,7 @@
     "dependencies": {
         "@tinymce/tinymce-vue": "^4.0.7",
         "dropzone": "^6.0.0-beta.2",
+        "swiper": "^8.3.2",
         "tw-elements": "^1.0.0-alpha12"
     }
 }

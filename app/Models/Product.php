@@ -24,7 +24,7 @@ class Product extends Model implements HasMedia
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->orderBy('categories.parent_id');
     }
 
     public function creator(): BelongsTo
@@ -34,11 +34,11 @@ class Product extends Model implements HasMedia
 
     public function scopeActive($builder)
     {
-        return $builder->where('active', true);
+        return $builder->where('products.active', true);
     }
 
     public function scopeInActive($builder)
     {
-        return $builder->where('active', false);
+        return $builder->where('products.active', false);
     }
 }
