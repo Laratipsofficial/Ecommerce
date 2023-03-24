@@ -12,6 +12,22 @@ My Wise email: ashish.dhamala2015@gmail.com
 
 If you decide to support me, the please send me your twitter handle in mail so that I can shout-out about you on twitter.
 
+## How to install
+
+```sh
+git clone git@github.com:Laratipsofficial/Ecommerce.git ecommerce
+cd ecommerce
+cp .env.example .env
+composer install
+npm install && npm run dev
+php artisan key:generate
+php artisan migrate --seed
+```
+
+Then you can login by going to `/admin/dashboard` route
+
+You can find the login credentials in `database/seeders/DatabaseSeeder.php` file
+
 ## License
 
 [MIT license](https://opensource.org/licenses/MIT).
