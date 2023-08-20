@@ -21,8 +21,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UsersController::class);
     Route::resource('categories', CategoriesController::class);
     Route::resource('products', ProductsController::class);
-    Route::post('upload-images', UploadImagesController::class)->name('images.store');
-    Route::post('delete-images', DeleteImageController::class)->name('images.destroy');
 });
 
 require __DIR__.'/auth.php';

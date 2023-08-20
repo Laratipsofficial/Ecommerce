@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             ->has(Product::factory()->count(7))
             ->create([
                 'email' => 'admin@admin.com',
-                'password' => 'admin@admin.com',
+                'password' => 'admin',
                 'name' => 'Super Admin',
             ]);
 
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             ->has(Product::factory()->count(9))
             ->create([
                 'email' => 'editor@editor.com',
-                'password' => 'editor@editor.com',
+                'password' => 'editor',
                 'name' => 'Editor',
             ]);
 
