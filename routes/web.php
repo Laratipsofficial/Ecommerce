@@ -10,6 +10,11 @@ Route::get('/news', [MarketingController::class, 'news'])->name('news');
 Route::get('/discounts', [MarketingController::class, 'discounts'])->name('discounts');
 Route::get('/contact', [MarketingController::class, 'contact'])->name('contact');
 
+// language switcher
+Route::get('/lang/{locale}', function ($locale) {
+    session(['locale' => $locale]);
+    return redirect()->back();
+})->name('lang');
 
 // Content pages
 Route::get('/{slug}', [MarketingController::class, 'content'])->name('content.show');

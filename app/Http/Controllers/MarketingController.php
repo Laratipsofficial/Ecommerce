@@ -11,51 +11,31 @@ class MarketingController extends Controller
 {
     public function index()
     {
-        $contentPages = CmsContent::get(['slug', 'title']);
-
-        return Inertia::render('Home', [
-            'contentPages' => $contentPages
-        ]);
+        return Inertia::render('Home');
     }
 
     public function menu()
     {
-        $contentPages = CmsContent::get(['slug', 'title']);
-        $sections = MenuSection::with('menuItems')->get();
-
-        return Inertia::render('Marketing/Menu', [
-            'menuSections' => $sections,
-            'contentPages' => $contentPages
-        ]);
+        return Inertia::render('Marketing/Menu');
     }
 
     public function news()
     {
-        $contentPages = CmsContent::get(['slug', 'title']);
-
-        return Inertia::render('Marketing/News',[
-            'contentPages' => $contentPages
-        ]);
+        return Inertia::render('Marketing/News');
     }
 
     public function discounts()
     {
         $discounts = Discount::with('menuItems')->get();
-        $contentPages = CmsContent::get(['slug', 'title']);
 
         return Inertia::render('Marketing/Discounts',[
-            'discounts' => $discounts,
-            'contentPages' => $contentPages
+            'discounts' => $discounts
         ]);
     }
 
     public function contact()
     {
-        $contentPages = CmsContent::get(['slug', 'title']);
-
-        return Inertia::render('Marketing/Contact',[
-            'contentPages' => $contentPages
-        ]);
+        return Inertia::render('Marketing/Contact');
     }
 
     public function content(string $slug)
@@ -66,11 +46,8 @@ class MarketingController extends Controller
             return redirect()->route('not-found');
         }
 
-        $contentPages = CmsContent::get(['slug', 'title']);
-
         return Inertia::render('Marketing/Content',[
             'content' => $content,
-            'contentPages' => $contentPages
         ]);
     }
 }

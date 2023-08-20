@@ -13,28 +13,7 @@ class HandleInertiaRequests extends Middleware
      *
      * @var string
      */
-   // protected $rootView = 'admin.app';
-
-    /**
-     * The root template that is loaded on the first page visit.
-     *
-     * @var string
-     */
-    // protected $rootView = 'app';
-    // by function
-    public function rootView(Request $request){
-        // if the route is admin then return admin.app else return front.app
-        if($request->routeIs('admin.*')){
-            return 'admin.app';
-        }
-
-        // if the route is table then return table.app else return front.app
-        if($request->routeIs('table.*')){
-            return 'table.app';
-        }
-
-        return 'front.app';
-    }
+    protected $rootView = 'admin.app';
 
     /**
      * Determine the current asset version.
@@ -63,6 +42,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => $request->session()->get('success'),
             ],
             'menus' => $this->getMenu($request),
+            'locale' => session('locale', 'nl'),
         ]);
     }
 
@@ -167,12 +147,13 @@ class HandleInertiaRequests extends Middleware
         $contentPagesMenuItems = [];
 
         // retrieve all cms content pages and add them to the menu
-        $cmsContentPages = CmsContent::all();
+        $locale = session('locale', 'nl');
+        $cmsContentPages = CmsContent::where('culture', $locale)->get();
 
         foreach ($cmsContentPages as $cmsContentPage){
             $contentPagesMenuItems[] = [
-                'label' => $cmsContentPage->title,
-                'url' => route('content.show', $cmsContentPage->id),
+                'label' => $cmsContentPage->displayName,
+                'url' => route('content.show', $cmsContentPage->slug),
                 'isActive' => $request->routeIs('content.show', $cmsContentPage->slug),
                 'isVisible' => true,
             ];

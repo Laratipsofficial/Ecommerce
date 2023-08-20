@@ -34,9 +34,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::middleware(['web', 'inertia'])
-                ->group(base_path('routes/web.php'));
-
-            Route::middleware(['web', 'inertia'])
                 ->name('tables.')
                 ->prefix('tables')
                 ->group(base_path('routes/tables.php'));
@@ -45,6 +42,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->name('admin.')
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
+
+            Route::middleware(['web', 'inertia'])
+                ->group(base_path('routes/web.php'));
         });
     }
 
