@@ -41,7 +41,7 @@ class DiscountSeeder extends Seeder
                 $discountedPrice = $menuItem->price - ($menuItem->price * 0.4);
 
                 // create the discount item
-                $discount->menuItems()->create([
+                $discount->discountItems()->create([
                     'menu_item_id' => $menuItem->id,
                     'discount' => $discountedPrice,
                 ]);

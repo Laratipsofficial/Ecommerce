@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use App\Models\Products\Product;
 use App\Models\User;
 use Database\Seeders\Content\CmsContentSeeder;
+use Database\Seeders\Discounts\DiscountSeeder;
 use Database\Seeders\Menus\MenuSectionSeeder;
+use Database\Seeders\Orders\OrderStatusSeeder;
+use Database\Seeders\Orders\OrderTypeSeeder;
 use Database\Seeders\Tables\TableSeeder;
 use Illuminate\Database\Seeder;
 
@@ -55,6 +58,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CmsContentSeeder::class);
 
         // create order statuses, types and order(s)
+        $this->call(OrderStatusSeeder::class);
+        $this->call(OrderTypeSeeder::class);
+
+        // seed discounts
+        $this->call(DiscountSeeder::class);
 
 
     }
