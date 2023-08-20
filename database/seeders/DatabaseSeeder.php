@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Products\Product;
 use App\Models\User;
+use Database\Seeders\Content\CmsContentSeeder;
+use Database\Seeders\Menus\MenuSectionSeeder;
+use Database\Seeders\Tables\TableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -32,7 +35,27 @@ class DatabaseSeeder extends Seeder
             ]);
 
         $this->call(RolesSeeder::class);
+
+        // if env is not staging or production, seed the database with dummy data
+        if (app()->environment(['production', 'acceptation'])) {
+            $this->call(StagingSeeder::class);
+            return;
+        }
+
+
+
         $this->call(CategoriesSeeder::class);
-        // $this->call(ProductsSeeder::class);
+        //$this->call(ProductsSeeder::class);
+        $this->call(TableSeeder::class);
+
+        // create menu items
+        $this->call(MenuSectionSeeder::class);
+
+        // create cms content
+        $this->call(CmsContentSeeder::class);
+
+        // create order statuses, types and order(s)
+
+
     }
 }
