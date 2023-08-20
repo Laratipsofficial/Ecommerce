@@ -13,9 +13,8 @@ use Inertia\Inertia;
 
 
 Route::get('/', function () {
-    return Inertia::render('Home');
+    return redirect()->route('admin.dashboard');
 });
-
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
