@@ -27,7 +27,7 @@ const config = ref({
     <div>
         <Label v-if="label"
                :value="label" />
-        <editor api-key="jpamoi4osp74tob1cw02x5sn5vu8g2hf8b77x8t16kew9tdk"
+        <editor api-key="soxujvzdy9fyk1zl73tyu5gsekbd7buww9u1ahlnr6mb5ijr"
                 :model-value="modelValue"
                 @update:model-value="$emit('update:modelValue', $event)"
                 :init="config"

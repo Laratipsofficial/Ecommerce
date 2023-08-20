@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Content\CmsContent;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -61,44 +62,132 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'success' => $request->session()->get('success'),
             ],
-            'menus' => [
-                [
-                    'label' => 'Dashboard',
-                    'url' => route('admin.dashboard'),
-                    'isActive' => $request->routeIs('admin.dashboard'),
-                    'isVisible' => true,
-                ],
-                [
-                    'label' => 'Permissions',
-                    'url' => route('admin.permissions.index'),
-                    'isActive' => $request->routeIs('admin.permissions.*'),
-                    'isVisible' => $request->user()?->can('view permissions module'),
-                ],
-                [
-                    'label' => 'Roles',
-                    'url' => route('admin.roles.index'),
-                    'isActive' => $request->routeIs('admin.roles.*'),
-                    'isVisible' => $request->user()?->can('view roles module'),
-                ],
-                [
-                    'label' => 'Users',
-                    'url' => route('admin.users.index'),
-                    'isActive' => $request->routeIs('admin.users.*'),
-                    'isVisible' => $request->user()?->can('view users module'),
-                ],
-                [
-                    'label' => 'Categories',
-                    'url' => route('admin.categories.index'),
-                    'isActive' => $request->routeIs('admin.categories.*'),
-                    'isVisible' => $request->user()?->can('view categories module'),
-                ],
-                [
-                    'label' => 'Products',
-                    'url' => route('admin.products.index'),
-                    'isActive' => $request->routeIs('admin.products.*'),
-                    'isVisible' => $request->user()?->can('view products module'),
-                ],
-            ],
+            'menus' => $this->getMenu($request),
         ]);
+    }
+
+
+    public function getMenu(Request $request){
+        if($request->routeIs('admin.*')){
+            return $this->getAdminMenu($request);
+        }
+
+        if($request->routeIs('table.*')){
+            return $this->getTableMenu($request);
+        }
+
+        return $this->getFrontMenu($request);
+    }
+
+    public function getAdminMenu(Request $request){
+        return [
+            [
+                'label' => 'Dashboard',
+                'url' => route('admin.dashboard'),
+                'isActive' => $request->routeIs('admin.dashboard'),
+                'isVisible' => true,
+            ],
+            [
+                'label' => 'Permissions',
+                'url' => route('admin.permissions.index'),
+                'isActive' => $request->routeIs('admin.permissions.*'),
+                'isVisible' => $request->user()?->can('view permissions module'),
+            ],
+            [
+                'label' => 'Roles',
+                'url' => route('admin.roles.index'),
+                'isActive' => $request->routeIs('admin.roles.*'),
+                'isVisible' => $request->user()?->can('view roles module'),
+            ],
+            [
+                'label' => 'Users',
+                'url' => route('admin.users.index'),
+                'isActive' => $request->routeIs('admin.users.*'),
+                'isVisible' => $request->user()?->can('view users module'),
+            ],
+            [
+                'label' => 'Categories',
+                'url' => route('admin.categories.index'),
+                'isActive' => $request->routeIs('admin.categories.*'),
+                'isVisible' => $request->user()?->can('view categories module'),
+            ],
+            [
+                'label' => 'Products',
+                'url' => route('admin.products.index'),
+                'isActive' => $request->routeIs('admin.products.*'),
+                'isVisible' => $request->user()?->can('view products module'),
+            ],
+            [
+                'label' => 'Tables',
+                'url' => route('admin.tables.index'),
+                'isActive' => $request->routeIs('admin.tables.*'),
+                'isVisible' => $request->user()?->can('view tables module'),
+            ],
+            [
+                'label' => 'CMS Content',
+                'url' => route('admin.content.index'),
+                'isActive' => $request->routeIs('admin.content.pages.*'),
+                'isVisible' => $request->user()?->can('view cms content module'),
+            ],
+            [
+                'label' => 'Menu Items',
+                'url' => route('admin.menus-items.index'),
+                'isActive' => $request->routeIs('admin.menus-items.*'),
+                'isVisible' => $request->user()?->can('view menu items module'),
+            ],
+            [
+                'label' => 'Menu Sections',
+                'url' => route('admin.menus-sections.index'),
+                'isActive' => $request->routeIs('admin.menus-sections.*'),
+                'isVisible' => $request->user()?->can('view menu sections module'),
+            ],
+            [
+                'label' => 'Menu Side Items',
+                'url' => route('admin.menus-side-items.index'),
+                'isActive' => $request->routeIs('admin.menus-side-items.*'),
+                'isVisible' => $request->user()?->can('view menu side items module'),
+            ],
+            [
+                'label' => 'Menu Discounts',
+                'url' => route('admin.menus-discounts.index'),
+                'isActive' => $request->routeIs('admin.menus-discounts.*'),
+                'isVisible' => $request->user()?->can('view menu discounts module'),
+            ],
+        ];
+    }
+
+    public function getFrontMenu(Request $request){
+        $baseMenu[] = [
+            'label' => 'Home',
+            'url' => route('home'),
+            'isActive' => $request->routeIs('home'),
+            'isVisible' => true,
+        ];
+
+        $contentPagesMenuItems = [];
+
+        // retrieve all cms content pages and add them to the menu
+        $cmsContentPages = CmsContent::all();
+
+        foreach ($cmsContentPages as $cmsContentPage){
+            $contentPagesMenuItems[] = [
+                'label' => $cmsContentPage->title,
+                'url' => route('content.show', $cmsContentPage->id),
+                'isActive' => $request->routeIs('content.show', $cmsContentPage->slug),
+                'isVisible' => true,
+            ];
+        }
+
+        // merge the content pages menu items with the base menu
+        return array_merge($baseMenu, $contentPagesMenuItems);
+    }
+
+    private function getTableMenu(Request $request)
+    {
+        return [
+            [
+
+            ]
+        ];
     }
 }
