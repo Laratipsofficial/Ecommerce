@@ -29,10 +29,6 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    menuSections: {
-        type: Array,
-        default: () => [],
-    },
     routeResourceName: {
         type: String,
         required: true,
@@ -41,20 +37,9 @@ const props = defineProps({
 
 const form = useForm({
     name: props.item.name ?? "",
-    price: props.item.price ?? "",
     description: props.item.description ?? "",
-    menu_section_id: props.item.menu_section_id ?? "",
-    number: props.item.number ?? "",
-    number_addition: props.item.number_addition ?? "",
-});
-
-const menuSectionsOptions = computed(() => {
-    return props.menuSections.map((menuSection) => {
-        return {
-            name: menuSection.name,
-            id: menuSection.id,
-        };
-    });
+    starts_at: props.item.starts_at ?? "",
+    ends_at: props.item.ends_at ?? "",
 });
 
 const submit = () => {
@@ -81,7 +66,7 @@ const submit = () => {
 
         <Container>
             <Card>
-                <form @submit.prevent="submit" class="space-y-6">
+                <form @submit.prevent="submit">
                     <div class="grid grid-cols-2 gap-6">
 
                         <InputGroup label="Name"
@@ -89,40 +74,31 @@ const submit = () => {
                                     :error-message="form.errors.name"
                                     required />
 
-                        <InputGroup label="Price"
-                                    type="number"
-                                    v-model="form.price"
-                                    :error-message="form.errors.price"
-                                    required />
-
-                        <InputGroup label="Number"
-                                    type="number"
-                                    v-model="form.number"
-                                    :error-message="form.errors.number_addition"
-                                    required />
-
-                        <InputGroup label="Number Addition"
-                                    type="text"
-                                    v-model="form.number_addition"
-                                    :error-message="form.errors.number_addition"
-                                    required />
-
-                        <SelectGroup label="Menu Section"
-                                     v-model="form.menu_section_id"
-                                     :error-message="form.errors.menu_section_id"
-                                     :items="menuSectionsOptions"
-                                     required />
-
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-6">
                         <InputGroup label="Description"
-                                     v-model="form.description"
-                                     :error-message="form.errors.description"
-                                     required />
+                                    v-model="form.description"
+                                    :error-message="form.errors.description"
+                                    required />
+
+                        <InputGroup label="Starts At"
+                                    type="datetime-local"
+                                    v-model="form.starts_at"
+                                    :error-message="form.errors.starts_at"
+                                    required />
+
+                        <InputGroup label="Ends At"
+                                    type="datetime-local"
+                                    v-model="form.ends_at"
+                                    :error-message="form.errors.ends_at"
+                                    required />
                     </div>
 
                     <div class="mt-4">
+                        <a
+                                v-if="props.edit"
+                                :href="route(`admin.discounts.items.index`, props.item.id)"
+                                class="mr-2">
+                            Items
+                        </a>
                         <Button :disabled="form.processing">
                             {{ form.processing ? 'Saving...' : 'Save' }}
                         </Button>

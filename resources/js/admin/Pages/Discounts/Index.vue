@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
@@ -15,7 +15,6 @@ import AddNew from "@/Components/AddNew.vue";
 
 import useDeleteItem from "@/Composables/useDeleteItem.js";
 import useFilters from "@/Composables/useFilters.js";
-import Filters from "@/Pages/Menus/Items/Filters.vue";
 
 const props = defineProps({
     title: {
@@ -26,11 +25,11 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    headers: {
-        type: Array,
-        default: () => [],
+    parent: {
+        type: Object,
+        default: () => ({}),
     },
-    menuSections: {
+    headers: {
         type: Array,
         default: () => [],
     },
@@ -45,8 +44,6 @@ const props = defineProps({
     can: Object,
 });
 
-
-console.log(props.menuSections);
 const {
     deleteModal,
     itemToDelete,
@@ -61,6 +58,13 @@ const { filters, isLoading, isFilled } = useFilters({
     filters: props.filters,
     routeResourceName: props.routeResourceName,
 });
+
+const createRoute = computed(() => {
+    return route(`admin.${props.routeResourceName}.create`);
+});
+
+
+
 </script>
 
 <template>
@@ -77,12 +81,7 @@ const { filters, isLoading, isFilled } = useFilters({
         <Container>
             <AddNew :show="isFilled">
                 <Button v-if="can.create"
-                        :href="route(`admin.${routeResourceName}.create`)">Add New</Button>
-
-                <template #filters>
-                    <Filters v-model="filters"
-                             :items="menuSections" />
-                </template>
+                        :href="createRoute">Add New</Button>
             </AddNew>
 
             <Card class="mt-4"
@@ -97,12 +96,7 @@ const { filters, isLoading, isFilled } = useFilters({
                             </div>
                         </Td>
                         <Td>
-                            <div class="whitespace-pre-wrap w-64">
-                                {{ item.price }}
-                            </div>
-                        </Td>
-                        <Td>
-                            <Actions :edit-link="route(`admin.${routeResourceName}.edit`, {id: item.id})"
+                            <Actions :edit-link="route(`admin.${routeResourceName}.edit`, [parent.id, item.id])"
                                      :show-edit="can.edit"
                                      :show-delete="can.delete"
                                      @deleteClicked="showDeleteModal(item)" />

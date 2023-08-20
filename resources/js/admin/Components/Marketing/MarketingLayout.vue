@@ -16,7 +16,6 @@ defineProps()
       <MarketingBanner />
       <ChineseBorder>
           <MarketingHeader/>
-          <MarketingNavigation/>
         <div class="marketing-content min-h-full text-center">
           <slot/>
         </div>

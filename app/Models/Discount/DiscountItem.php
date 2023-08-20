@@ -17,6 +17,13 @@ class DiscountItem extends Model
         'menu_item_id',
     ];
 
+    protected $appends = [
+        'name',
+        'price',
+        'discounted_price',
+        'is_active'
+    ];
+
     public function discount()
     {
         return $this
@@ -27,5 +34,25 @@ class DiscountItem extends Model
     {
         return $this
             ->belongsTo(MenuItem::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->menuItem->name;
+    }
+
+    public function getPriceAttribute()
+    {
+        return $this->menuItem->price;
+    }
+
+    public function getDiscountedPriceAttribute()
+    {
+        return $this->menuItem->price - $this->discount;
+    }
+
+    public function getIsActiveAttribute()
+    {
+        return $this->discount->is_active;
     }
 }

@@ -75,12 +75,12 @@ class CmsContentController extends Controller
         return redirect()->route("admin.{$this->routeResourceName}.index")->with('success', 'CmsContent created successfully.');
     }
 
-    public function edit(CmsContent $CmsContent)
+    public function edit(CmsContent $content)
     {
         return Inertia::render('CmsContent/Create', [
             'edit' => true,
             'title' => 'Edit CmsContent',
-            'item' => new CmsContentResource($CmsContent),
+            'item' => new CmsContentResource($content),
             'routeResourceName' => $this->routeResourceName,
         ]);
     }

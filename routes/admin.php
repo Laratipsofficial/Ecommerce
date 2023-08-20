@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Identity\PermissionsController;
 use App\Http\Controllers\Admin\Identity\RolesController;
 use App\Http\Controllers\Admin\Menus\MenuItemController;
 use App\Http\Controllers\Admin\Menus\MenuSectionController;
+use App\Http\Controllers\Admin\Menus\MenuSideItemController;
 use App\Http\Controllers\Admin\Products\ProductsController;
 use App\Http\Controllers\Admin\Tables\TableController;
 use App\Http\Controllers\Admin\UsersController;
@@ -39,19 +40,30 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tables', TableController::class);
 
 
+
+
     //group them in 'menus' prefix
     Route::prefix('menus')->group(function (){
-        Route::resource('menus-sections', MenuSectionController::class);
-        Route::resource('menus-items', MenuItemController::class);
-        Route::resource('menus-side-items', MenuItemController::class);
+        Route::resource('menus-sections', MenuSectionController::class)->parameters([
+            'menus-sections' => 'menuSection'
+        ]);
+        Route::resource('menus-items', MenuItemController::class)->parameters([
+            'menus-items' => 'menuItem'
+        ]);
+        Route::resource('menus-side-items', MenuSideItemController::class)->parameters([
+            'menus-items' => 'menuSideItem'
+        ]);
     });
 
     // discounts
-    Route::prefix('menus')->group(function (){
-        Route::resource('menus-discounts', DiscountController::class);
-        Route::resource('menus-discounts-items', DiscountItemController::class);
-    });
 
+        Route::resource('discounts', DiscountController::class)->parameters([
+            'discounts' => 'discount'
+        ]);
+        Route::resource('discounts.items', DiscountItemController::class)->parameters([
+            'discounts' => 'discount',
+            'items' => 'discountItem'
+        ]);
 });
 
 require __DIR__.'/auth.php';

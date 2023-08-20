@@ -1,5 +1,6 @@
 <script setup>
 
+import MarketingNavigation from "@/Components/Marketing/MarketingNavigation.vue";
 </script>
 
 <template>
@@ -13,7 +14,7 @@
           <span class="header-subtitle">De Gouden Draak</span>
         </div>
         <div class="header-navigation mt-2 max-w-fit">
-
+            <MarketingNavigation/>
         </div>
       </div>
       <img class="logo-right" src="/pictures/dragon-small-flipped.png" alt="Golden Dragon" height="200px" />
@@ -34,11 +35,6 @@
   align-items: center;
 }
 
-.logo-left,
-.logo-right {
-  @apply sm:h-4 md:h-20 lg:h-64;
-}
-
 .header-text {
   font-size: 40px;
   font-weight: bold;
@@ -47,4 +43,30 @@
 .header-subtitle {
   font-size: 50px;
 }
+
+
+
+@media (max-width: 640px) {
+    .logo-left,
+    .logo-right {
+        display: none;
+    }
+}
+
+@media (min-width: 640px) {
+    .logo-left,
+    .logo-right {
+        display: block;
+        width: 100px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .logo-left,
+    .logo-right {
+        display: block;
+        width: 150px;
+    }
+}
+
 </style>

@@ -11,7 +11,6 @@ use Inertia\Inertia;
 
 class TableController extends Controller
 {
-
     private string $routeResourceName = 'tables';
 
     public function __construct()

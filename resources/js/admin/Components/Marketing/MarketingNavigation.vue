@@ -44,6 +44,7 @@ console.log(usePage().props.menus);
   padding: 0px 20px;
   border: 1px solid white;
   background-size: 100% 100%;
+    vert-align: middle;
 }
 
 .menu a {
@@ -51,6 +52,7 @@ console.log(usePage().props.menus);
   text-decoration: none;
   font-weight: bold;
   font-size: 20px;
+    vert-align: middle;
 }
 </style>
 <script setup>

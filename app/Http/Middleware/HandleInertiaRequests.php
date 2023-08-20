@@ -129,8 +129,8 @@ class HandleInertiaRequests extends Middleware
             ],
             [
                 'label' => 'Menu Discounts',
-                'url' => route('admin.menus-discounts.index'),
-                'isActive' => $request->routeIs('admin.menus-discounts.*'),
+                'url' => route('admin.discounts.index'),
+                'isActive' => $request->routeIs('admin.discounts.*'),
                 'isVisible' => $request->user()?->can('view menu discounts module'),
             ],
         ];
