@@ -2,15 +2,15 @@
 
 namespace App\Providers;
 
-use App\Models\Category;
-use App\Models\CategoryProduct;
-use App\Models\Product;
+use App\Models\Products\Category;
+use App\Models\Products\CategoryProduct;
+use App\Models\Products\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -12,7 +12,28 @@ class HandleInertiaRequests extends Middleware
      *
      * @var string
      */
-    protected $rootView = 'admin.app';
+   // protected $rootView = 'admin.app';
+
+    /**
+     * The root template that is loaded on the first page visit.
+     *
+     * @var string
+     */
+    // protected $rootView = 'app';
+    // by function
+    public function rootView(Request $request){
+        // if the route is admin then return admin.app else return front.app
+        if($request->routeIs('admin.*')){
+            return 'admin.app';
+        }
+
+        // if the route is table then return table.app else return front.app
+        if($request->routeIs('table.*')){
+            return 'table.app';
+        }
+
+        return 'front.app';
+    }
 
     /**
      * Determine the current asset version.

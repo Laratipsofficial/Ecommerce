@@ -1,16 +1,21 @@
 <?php
 
-use App\Http\Controllers\Admin\AttachPermissionToRoleController;
-use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\Catogories\CategoriesController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DeleteImageController;
-use App\Http\Controllers\Admin\DetachPermissionFromRoleController;
-use App\Http\Controllers\Admin\PermissionsController;
-use App\Http\Controllers\Admin\ProductsController;
-use App\Http\Controllers\Admin\RolesController;
-use App\Http\Controllers\Admin\UploadImagesController;
+use App\Http\Controllers\Admin\Identity\AttachPermissionToRoleController;
+use App\Http\Controllers\Admin\Identity\DetachPermissionFromRoleController;
+use App\Http\Controllers\Admin\Identity\PermissionsController;
+use App\Http\Controllers\Admin\Identity\RolesController;
+use App\Http\Controllers\Admin\Products\ProductsController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+
+Route::get('/', function () {
+    return Inertia::render('Home');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');

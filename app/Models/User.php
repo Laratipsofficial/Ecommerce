@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Casts\PasswordCast;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Products\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\Category;
-use App\Models\User;
+use App\Models\Products\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
-use Spatie\Permission\Models\Role;
 
 class CategoriesRequest extends FormRequest
 {
