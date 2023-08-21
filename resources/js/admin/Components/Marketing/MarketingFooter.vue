@@ -3,6 +3,7 @@
       <div class="space-x-4">
           <a :href="route('contact')">Naar Contact</a>
           <a :href="route('admin.dashboard')">Dashboard</a>
+          <a :href="route('tablets.index')" class="text-white">Tafels</a>
       </div>
 <!--      Language switchers -->
         <div class="space-x-4">

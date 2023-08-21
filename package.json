@@ -21,12 +21,14 @@
         "postcss-multiple-tailwind": "^1.0.1",
         "tailwindcss": "^3.1.6",
         "vite": "^2.9.14",
-        "vue": "^3.2.30",
+        "vue": "^3.3.4",
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
         "@tinymce/tinymce-vue": "^4.0.7",
         "dropzone": "^6.0.0-beta.2",
+        "html2pdf.js": "^0.10.1",
+        "qrcode.vue": "^3.4.1",
         "tw-elements": "^1.0.0-alpha12",
         "vue-i18n": "^9.2.2"
     }

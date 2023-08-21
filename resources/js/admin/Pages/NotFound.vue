@@ -1,6 +1,6 @@
 <script setup>
 
-import MarketingLayout from "@/admin/Components/Marketing/MarketingLayout.vue";
+import MarketingLayout from "@/Components/Marketing/MarketingLayout.vue";
 </script>
 
 <template>
