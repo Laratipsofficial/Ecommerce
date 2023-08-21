@@ -17,4 +17,9 @@ class Order extends Model
         'discount',
         'comment',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

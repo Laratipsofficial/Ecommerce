@@ -16,8 +16,26 @@ export default function (params) {
   const isLoading = ref(false);
   const fetchItemsHandler = ref(null);
 
+
+  // check if the route starts with admin, tablet or not, based on that, we will use the correct route
+    // get it from the first part of the route
+    const urlPrefix = window.location.pathname.split('/')[1];
+    var routeName = 'takeaway';
+
+    // if the route starts with admin, we will use the admin route
+    if (urlPrefix === 'admin') {
+        routeName = 'admin';
+    }
+
+    // if the route starts with tablet, we will use the tablet route
+    if (urlPrefix === 'tablets') {
+        routeName = 'tablets';
+    }
+
+
   function fetchItems() {
-    Inertia.get(route(`admin.${routeResourceName}.index`), {
+    Inertia.get(route(routeName + '.' + routeResourceName + '.index'),
+        {
       ...filters.value,
       page: 1,
     }, {

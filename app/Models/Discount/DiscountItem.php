@@ -21,13 +21,19 @@ class DiscountItem extends Model
         'name',
         'price',
         'discounted_price',
-        'is_active'
+        'is_active',
+        'parent'
     ];
 
-    public function discount()
+    public function parent()
     {
         return $this
             ->belongsTo(Discount::class);
+    }
+
+    public function getParentAttribute()
+    {
+        return $this->parent()->first();
     }
 
     public function menuItem()
@@ -53,6 +59,6 @@ class DiscountItem extends Model
 
     public function getIsActiveAttribute()
     {
-        return $this->discount->is_active;
+        return true;
     }
 }

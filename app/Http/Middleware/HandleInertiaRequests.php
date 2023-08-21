@@ -52,7 +52,7 @@ class HandleInertiaRequests extends Middleware
             return $this->getAdminMenu($request);
         }
 
-        if($request->routeIs('table.*')){
+        if($request->routeIs('tablets.*')){
             return $this->getTableMenu($request);
         }
 
@@ -166,8 +166,30 @@ class HandleInertiaRequests extends Middleware
     private function getTableMenu(Request $request)
     {
         return [
-            [
 
+                [
+                    'label' => 'Menu',
+                    'url' => route('tablets.menus.index'),
+                    'isActive' => $request->routeIs('tablets.menus.*'),
+                    'isVisible' => true,
+                ],
+                [
+                    'label' => 'Cart',
+                    'url' => route('tablets.cart.index'),
+                    'isActive' => $request->routeIs('tablets.cart.*'),
+                    'isVisible' => true,
+                ],
+                [
+                    'label' => 'History',
+                    'url' => route('tablets.history.index'),
+                    'isActive' => $request->routeIs('tablets.history.*'),
+                    'isVisible' => true,
+                ],
+            [
+                'label' => 'End dinner',
+                'url' => route('tablets.reset'),
+                'isActive' => $request->routeIs('tablets.reset'),
+                'isVisible' => true,
             ]
         ];
     }

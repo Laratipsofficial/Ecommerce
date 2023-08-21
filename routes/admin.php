@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
             'menus-items' => 'menuItem'
         ]);
         Route::resource('menus-side-items', MenuSideItemController::class)->parameters([
-            'menus-items' => 'menuSideItem'
+            'menus-side-items' => 'menuSideItem'
         ]);
     });
 

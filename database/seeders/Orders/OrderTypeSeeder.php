@@ -10,12 +10,12 @@ class OrderTypeSeeder extends Seeder
     public function run()
     {
         OrderType::create([
-            'name' => 'Dine In',
+            'name' => 'dine-in',
             'display_name' => 'Dine In',
         ]);
 
         OrderType::create([
-            'name' => 'Take Away',
+            'name' => 'take-away',
             'display_name' => 'Take Away',
         ]);
     }

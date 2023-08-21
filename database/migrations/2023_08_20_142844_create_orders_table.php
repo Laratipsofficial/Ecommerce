@@ -9,11 +9,11 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('table_id')->nullable();
             $table->string('status_id')->nullable();
             $table->string('type_id')->nullable();
             $table->string('price')->nullable();
-            $table->string('discount');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

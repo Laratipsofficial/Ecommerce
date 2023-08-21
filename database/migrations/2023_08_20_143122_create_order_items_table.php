@@ -13,8 +13,10 @@ return new class extends Migration {
             $table->integer('order_id');
             $table->integer('menu_item_id');
             $table->decimal('price');
+            $table->decimal('discount')->default(0);
             $table->integer('quantity');
             $table->integer('menu_side_item_id')->nullable();
+            $table->string('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

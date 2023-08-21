@@ -16,6 +16,16 @@ Route::get('/lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang');
 
+require __DIR__.'/auth.php';
+
+// not found
+Route::get('/not-found', function () {
+    return Inertia::render('NotFound');
+})->name('not-found');
+
+
+
+
 // Content pages
 Route::get('/{slug}', [MarketingController::class, 'content'])->name('content.show');
 

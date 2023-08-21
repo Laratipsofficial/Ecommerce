@@ -3,6 +3,7 @@
 namespace Database\Seeders\Menus;
 
 use App\Models\Menu\MenuSection;
+use App\Models\Menu\MenuSideItem;
 use Illuminate\Database\Seeder;
 
 class MenuSectionSeeder extends Seeder
@@ -23,6 +24,22 @@ class MenuSectionSeeder extends Seeder
 
         MenuSection::create([
             'name' => 'Beverages',
+        ]);
+
+        // add menu side items
+        MenuSideItem::create([
+            'name' => 'Extra Rice',
+            'price' => 2.00,
+        ]);
+
+        MenuSideItem::create([
+            'name' => 'Extra Noodles',
+            'price' => 2.00,
+        ]);
+
+        MenuSideItem::create([
+            'name' => 'Extra Vegetables',
+            'price' => 2.00,
         ]);
 
         // create menu items for each menu section
