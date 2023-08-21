@@ -93,6 +93,11 @@ const { filters, isLoading, isFilled } = useFilters({
                     <template v-slot="{ item }">
                         <Td>
                             <div class="whitespace-pre-wrap w-64">
+                                {{ item.full_number }}
+                            </div>
+                        </Td>
+                        <Td>
+                            <div class="whitespace-pre-wrap w-64">
                                 {{ item.name }}
                             </div>
                         </Td>

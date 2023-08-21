@@ -19,6 +19,7 @@ class MenuItemResource extends JsonResource
             'menu_section_id' => $this->menu_section_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'full_number' => $this->full_number,
         ];
     }
 }

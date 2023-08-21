@@ -33,9 +33,9 @@ class MenuItemController extends Controller
                 // the full number is the number and the number addition of the menu item not stored in the database
             ->when(
                 // if the request menu section id is not null
-                $request->menu_section_id !== null,
+                $request->menuSectionId !== null,
                 // return the menu item if it has the same menu section id as the request menu section id
-                fn (Builder $builder) => $builder->where('menu_section_id', $request->menu_section_id)
+                fn (Builder $builder) => $builder->where('menu_section_id', $request->menuSectionId)
             )
             ->when(
                 $request->search,
@@ -47,6 +47,13 @@ class MenuItemController extends Controller
             ->latest('id')
             ->paginate(10);
 
+        // add the full number to the menu item
+        $MenuItems->getCollection()->transform(function (MenuItem $menuItem) {
+            $menuItem->full_number = "{$menuItem->number}{$menuItem->number_addition}";
+
+            return $menuItem;
+        });
+
         $menuSections = MenuSection::all();
 
         return Inertia::render('Menus/Items/Index', [
@@ -55,8 +62,16 @@ class MenuItemController extends Controller
             'menuSections' => MenuSectionResource::collection($menuSections),
             'headers' => [
                 [
+                    'label' => 'Number',
+                    'name' => 'full_number',
+                ],
+                [
                     'label' => 'Name',
                     'name' => 'name',
+                ],
+                [
+                    'label' => 'Price',
+                    'name' => 'price',
                 ],
                 [
                     'label' => 'Actions',
