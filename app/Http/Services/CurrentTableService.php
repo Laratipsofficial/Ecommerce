@@ -82,4 +82,9 @@ class CurrentTableService
 
         session(['round' => $round]);
     }
+
+    public function setOrderId(mixed $order_id)
+    {
+        session(['order_id' => $order_id]);
+    }
 }

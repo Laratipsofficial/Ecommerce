@@ -137,11 +137,19 @@ class HandleInertiaRequests extends Middleware
     }
 
     public function getFrontMenu(Request $request){
-        $baseMenu[] = [
-            'label' => 'Home',
-            'url' => route('home'),
-            'isActive' => $request->routeIs('home'),
-            'isVisible' => true,
+        $baseMenu = [
+                [
+                'label' => 'Home',
+                'url' => route('home'),
+                'isActive' => $request->routeIs('home'),
+                'isVisible' => true,
+                ],
+                [
+                'label' => 'Menu',
+                'url' => route('takeaway.menus.index'),
+                'isActive' => $request->routeIs('takeaway.menus.*'),
+                'isVisible' => true,
+                ]
         ];
 
         $contentPagesMenuItems = [];

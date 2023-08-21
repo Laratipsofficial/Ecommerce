@@ -43,6 +43,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
 
+            // takeaway routes
+            Route::middleware(['web', 'inertia'])
+                ->name('takeaway.')
+                ->prefix('takeaway')
+                ->group(base_path('routes/takeaway.php'));
+
             Route::middleware(['web', 'inertia'])
                 ->group(base_path('routes/web.php'));
         });

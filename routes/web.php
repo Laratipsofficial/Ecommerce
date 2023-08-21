@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\MarketingController;
+use App\Http\Controllers\TakeAway\CartController;
+use App\Http\Controllers\TakeAway\HistoryController;
+use App\Http\Controllers\TakeAway\MenuController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,9 +25,6 @@ require __DIR__.'/auth.php';
 Route::get('/not-found', function () {
     return Inertia::render('NotFound');
 })->name('not-found');
-
-
-
 
 // Content pages
 Route::get('/{slug}', [MarketingController::class, 'content'])->name('content.show');

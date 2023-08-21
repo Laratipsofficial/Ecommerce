@@ -5,12 +5,14 @@ import MarketingBanner from "./MarketingBanner.vue";
 import MarketingFooter from "./MarketingFooter.vue";
 import MarketingNavigation from "./MarketingNavigation.vue";
 import MarketingHeader from "./MarketingHeader.vue";
+import Alert from "@/Components/Alert.vue";
 
 defineProps()
 
 </script>
 
 <template>
+    <Alert />
   <div class="w-full min-h-screen">
     <div class="marketing-layout min-h-screen">
       <MarketingBanner />

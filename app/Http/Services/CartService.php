@@ -147,6 +147,11 @@ class CartService
         // clear cart
         $this->clearCart();
 
+        // if is take away store a cookie with the order id
+        if ($this->isTakeAway()) {
+            $this->currentTableService->setOrderId($order_id);
+        }
+
         return true;
     }
 
