@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();;
+            $table->longText('description')->nullable();;
             $table->integer('number')->nullable();
             $table->string('number_addition')->nullable();
             $table->string('price');

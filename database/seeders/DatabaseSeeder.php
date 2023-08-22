@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Products\Product;
 use App\Models\User;
 use Database\Seeders\Content\CmsContentSeeder;
 use Database\Seeders\Discounts\DiscountSeeder;
@@ -22,7 +21,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory()
-            ->has(Product::factory()->count(7))
             ->create([
                 'email' => 'admin@admin.com',
                 'password' => 'admin',
@@ -30,7 +28,6 @@ class DatabaseSeeder extends Seeder
             ]);
 
         User::factory()
-            ->has(Product::factory()->count(9))
             ->create([
                 'email' => 'editor@editor.com',
                 'password' => 'editor',
@@ -39,20 +36,17 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RolesSeeder::class);
 
-        // if env is not staging or production, seed the database with dummy data
-        if (app()->environment(['production', 'acceptation'])) {
+        $shouldStage = app()->environment(['production', 'acceptation']);
+
+        if (true) {
             $this->call(StagingSeeder::class);
-            return;
+          //  return;
         }
 
-
-
-        $this->call(CategoriesSeeder::class);
-        //$this->call(ProductsSeeder::class);
         $this->call(TableSeeder::class);
 
         // create menu items
-        $this->call(MenuSectionSeeder::class);
+       // $this->call(MenuSectionSeeder::class);
 
         // create cms content
         $this->call(CmsContentSeeder::class);
