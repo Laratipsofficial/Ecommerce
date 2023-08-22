@@ -4,6 +4,7 @@ import MarketingLayout from "@/Components/Marketing/MarketingLayout.vue";
 import CompanyGoogleMaps from "@/Components/Marketing/CompanyGoogleMaps.vue";
 import PdfExporter from "@/Components/PdfExporter.vue";
 import DateDisplay from "@/Components/DateDisplay.vue";
+import PriceDisplay from "@/Components/PriceDisplay.vue";
 
 const props = defineProps({
     sections:{
@@ -43,9 +44,12 @@ const props = defineProps({
                                 <p>
                                     {{ dish.description }}
                                 </p>
-                                <p>
-                                    current price: €{{ dish.current_price }}
-                                    base price: €{{ dish.price }}
+                                <p v-if="dish.current_price != dish.price">
+                                    van <PriceDisplay :price="dish.price" />
+                                    voor <PriceDisplay :price="dish.current_price" />
+                                </p>
+                                <p v-else>
+                                    voor <PriceDisplay :price="dish.current_price" />
                                 </p>
                             </div>
                         </div>
@@ -63,10 +67,13 @@ const props = defineProps({
                                 </p>
                                 <div class="discount-dishes">
                                     <h4>Dishes</h4>
-                                    <ul class="list-none">
-                                        <li class="list-none" v-for="dish in discount.discount_items">
+                                    <ul class="list-none space-y-1">
+                                        <li class="list-none p-3" v-for="dish in discount.discount_items">
+                                            <h5 class="font-bold">
+                                                {{ dish.menu_item_name }}
+                                            </h5>
                                             <p>
-                                                {{ dish.menu_item_name}} van €{{ dish.menu_item_price }} voor €{{ dish.discount_price }}
+                                                Nu voor <PriceDisplay :price="dish.menu_item_price" />
                                             </p>
                                         </li>
                                     </ul>

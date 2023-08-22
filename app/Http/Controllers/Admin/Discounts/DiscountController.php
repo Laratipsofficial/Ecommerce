@@ -101,9 +101,9 @@ class DiscountController extends Controller
         return redirect()->route("admin.{$this->routeResourceName}.index")->with('success', 'Discount updated successfully.');
     }
 
-    public function destroy(Discount $menuItem)
+    public function destroy(Discount $discount)
     {
-        $menuItem->delete();
+        $discount->delete();
 
         return back()->with('success', 'Discount deleted successfully.');
     }
