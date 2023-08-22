@@ -24,8 +24,8 @@ class DiscountItemController extends Controller
     {
         $this->middleware('can:view discounts list')->only('index');
         $this->middleware('can:create discount')->only(['create', 'store']);
-        $this->middleware('can:update,discount')->only(['edit', 'update']);
-        $this->middleware('can:delete,discount')->only('destroy');
+        $this->middleware('can:edit discount')->only(['edit', 'update']);
+        $this->middleware('can:delete discount')->only('destroy');
     }
 
     public function index(Request $request, Discount $discount)
@@ -67,7 +67,9 @@ class DiscountItemController extends Controller
             'filters' => (object) $request->all(),
             'routeResourceName' => $this->routeResourceName,
             'can' => [
-                'create' => $request->user()->can('create MenuItem'),
+                'create' => $request->user()->can('create discount'),
+                'edit' => $request->user()->can('edit discount'),
+                'delete' => $request->user()->can('delete discount'),
             ],
         ]);
     }

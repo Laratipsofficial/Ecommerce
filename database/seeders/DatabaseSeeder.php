@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Database\Seeders\Content\CmsContentSeeder;
 use Database\Seeders\Discounts\DiscountSeeder;
-use Database\Seeders\Menus\MenuSectionSeeder;
+use Database\Seeders\Orders\OrdersSeeder;
 use Database\Seeders\Orders\OrderStatusSeeder;
 use Database\Seeders\Orders\OrderTypeSeeder;
 use Database\Seeders\Tables\TableSeeder;
@@ -20,21 +19,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()
-            ->create([
-                'email' => 'admin@admin.com',
-                'password' => 'admin',
-                'name' => 'Super Admin',
-            ]);
+        $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(OrderStatusSeeder::class);
+        $this->call(OrderTypeSeeder::class);
 
-        User::factory()
-            ->create([
-                'email' => 'editor@editor.com',
-                'password' => 'editor',
-                'name' => 'Editor',
-            ]);
-
-        $this->call(RolesSeeder::class);
 
         $shouldStage = app()->environment(['production', 'acceptation']);
 
@@ -43,21 +31,20 @@ class DatabaseSeeder extends Seeder
           //  return;
         }
 
-        $this->call(TableSeeder::class);
+        $isProduction = app()->environment('production');
 
-        // create menu items
-       // $this->call(MenuSectionSeeder::class);
+        if ($isProduction) {
+            return;
+        }
+
+        $this->call(TableSeeder::class);
 
         // create cms content
         $this->call(CmsContentSeeder::class);
 
         // create order statuses, types and order(s)
-        $this->call(OrderStatusSeeder::class);
-        $this->call(OrderTypeSeeder::class);
-
-        // seed discounts
         $this->call(DiscountSeeder::class);
 
-
+        $this->call(OrdersSeeder::class);
     }
 }

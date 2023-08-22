@@ -18,6 +18,7 @@ class Order extends Model
         'discount',
         'comment',
         'table_id',
+        'item_count',
     ];
 
     protected $appends = [
@@ -47,5 +48,10 @@ class Order extends Model
     public function getTotalPriceAttribute()
     {
         return $this->items->sum('total_price');
+    }
+
+    public function getItemCountAttribute()
+    {
+        return $this->items->count();
     }
 }

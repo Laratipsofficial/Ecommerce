@@ -15,21 +15,21 @@ class CmsContentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:view CmsContents list')->only('index');
-        $this->middleware('can:create CmsContent')->only(['create', 'store']);
-        $this->middleware('can:update,CmsContent')->only(['edit', 'update']);
-        $this->middleware('can:delete,CmsContent')->only('destroy');
+        $this->middleware('can:view content list')->only('index');
+        $this->middleware('can:create content')->only(['create', 'store']);
+        $this->middleware('can:edit content')->only(['edit', 'update']);
+        $this->middleware('can:delete content')->only('destroy');
     }
 
     public function index(Request $request)
     {
-        $CmsContents = CmsContent::query()
+        $content = CmsContent::query()
             ->latest('id')
             ->paginate(10);
 
         return Inertia::render('CmsContent/Index', [
-            'title' => 'CmsContents',
-            'items' => CmsContentResource::collection($CmsContents),
+            'title' => 'content',
+            'items' => CmsContentResource::collection($content),
             'headers' => [
                 [
                     'label' => 'Name',
@@ -54,7 +54,9 @@ class CmsContentController extends Controller
             'filters' => (object) $request->all(),
             'routeResourceName' => $this->routeResourceName,
             'can' => [
-                'create' => $request->user()->can('create CmsContent'),
+                'create' => $request->user()->can('create content'),
+                'edit' => $request->user()->can('edit content'),
+                'delete' => $request->user()->can('delete content'),
             ],
         ]);
     }
@@ -85,9 +87,9 @@ class CmsContentController extends Controller
         ]);
     }
 
-    public function update(CmsContentRequest $request, CmsContent $CmsContent)
+    public function update(CmsContentRequest $request, CmsContent $content)
     {
-        $CmsContent->update($request->validated());
+        $content->update($request->validated());
 
         return redirect()->route("admin.{$this->routeResourceName}.index")->with('success', 'CmsContent updated successfully.');
     }

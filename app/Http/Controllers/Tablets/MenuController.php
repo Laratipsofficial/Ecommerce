@@ -26,10 +26,6 @@ class MenuController extends Controller
 
     public function __construct(CartService $cartItemService, CurrentTableService $currentTableService)
     {
-        $this->middleware('can:view MenuItems list')->only('index');
-        $this->middleware('can:create MenuItem')->only(['create', 'store']);
-        $this->middleware('can:update,MenuItem')->only(['edit', 'update']);
-        $this->middleware('can:delete,MenuItem')->only('destroy');
         $this->cartItemService = $cartItemService;
         $this->currentTableService = $currentTableService;
     }

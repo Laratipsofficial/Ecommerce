@@ -19,10 +19,10 @@ class MenuItemController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:view MenuItems list')->only('index');
-        $this->middleware('can:create MenuItem')->only(['create', 'store']);
-        $this->middleware('can:update,MenuItem')->only(['edit', 'update']);
-        $this->middleware('can:delete,MenuItem')->only('destroy');
+        $this->middleware('can:view menu list')->only('index');
+        $this->middleware('can:create menu')->only(['create', 'store']);
+        $this->middleware('can:edit menu')->only(['edit', 'update']);
+        $this->middleware('can:delete menu')->only('destroy');
     }
 
     public function index(Request $request)
@@ -86,7 +86,9 @@ class MenuItemController extends Controller
             'filters' => (object) $request->all(),
             'routeResourceName' => $this->routeResourceName,
             'can' => [
-                'create' => $request->user()->can('create MenuItem'),
+                'create' => $request->user()->can('create menu'),
+                'edit' => $request->user()->can('edit menu'),
+                'delete' => $request->user()->can('delete menu'),
             ],
         ]);
     }

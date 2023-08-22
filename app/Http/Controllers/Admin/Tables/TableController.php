@@ -15,10 +15,10 @@ class TableController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:view Tables list')->only('index');
-        $this->middleware('can:create Table')->only(['create', 'store']);
-        $this->middleware('can:update,Table')->only(['edit', 'update']);
-        $this->middleware('can:delete,Table')->only('destroy');
+        $this->middleware('can:view tables list')->only('index');
+        $this->middleware('can:create table')->only(['create', 'store']);
+        $this->middleware('can:edit table')->only(['edit', 'update']);
+        $this->middleware('can:delete table')->only('destroy');
     }
 
     public function index(Request $request)
@@ -44,7 +44,9 @@ class TableController extends Controller
             'filters' => (object) $request->all(),
             'routeResourceName' => $this->routeResourceName,
             'can' => [
-                'create' => $request->user()->can('create Table'),
+                'create' => $request->user()->can('create table'),
+                'edit' => $request->user()->can('edit table'),
+                'delete' => $request->user()->can('delete table'),
             ],
         ]);
     }

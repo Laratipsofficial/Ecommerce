@@ -22,8 +22,8 @@ class OrdersController extends Controller
     {
         $this->middleware('can:view orders list')->only('index');
         $this->middleware('can:create order')->only(['create', 'store']);
-        $this->middleware('can:update,order')->only(['edit', 'update']);
-        $this->middleware('can:delete,order')->only('destroy');
+        $this->middleware('can:edit order')->only(['edit', 'update']);
+        $this->middleware('can:delete order')->only('destroy');
     }
 
     public function index(Request $request)
@@ -67,6 +67,10 @@ class OrdersController extends Controller
                     'name' => 'status.name',
                 ],
                 [
+                    'label' => 'Items',
+                    'name' => 'item_count',
+                ],
+                [
                     'label' => 'Type',
                     'name' => 'type.name',
                 ],
@@ -95,6 +99,7 @@ class OrdersController extends Controller
             'can' => [
                 'create' => $request->user()->can('create order'),
                 'edit' => $request->user()->can('edit order'),
+                'delete' => $request->user()->can('delete order'),
             ],
         ]);
     }

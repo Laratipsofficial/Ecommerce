@@ -24,6 +24,7 @@ class OrderResource extends JsonResource
             'orderItems' => OrderItemResource::collection($this->whenLoaded('orderItems')),
             'orderItemsCount' => $this->whenLoaded('orderItems', $this->items()->count()),
             'status' => new OrderStatusResource($this->whenLoaded('status')),
+            'item_count' => $this->getItemCountAttribute(),
         ];
     }
 }

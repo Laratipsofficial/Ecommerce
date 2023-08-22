@@ -23,6 +23,12 @@ Route::get('/not-found', function () {
     return Inertia::render('NotFound');
 })->name('not-found');
 
+
+// return all current user abilities
+Route::get('/abilities', function () {
+    return auth()->user()->getAllPermissions()->pluck('name');
+});
+
 // Content pages
 Route::get('/{slug}', [MarketingController::class, 'content'])->name('content.show');
 

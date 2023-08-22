@@ -24,8 +24,8 @@ class OrdersItemsController extends Controller
     {
         $this->middleware('can:view orders list')->only('index');
         $this->middleware('can:create order')->only(['create', 'store']);
-        $this->middleware('can:update,order')->only(['edit', 'update']);
-        $this->middleware('can:delete,order')->only('destroy');
+        $this->middleware('can:edit order')->only(['edit', 'update']);
+        $this->middleware('can:delete order')->only('destroy');
     }
 
     public function index(Request $request, Order $order)
@@ -87,6 +87,8 @@ class OrdersItemsController extends Controller
             'routeResourceName' => $this->routeResourceName,
             'can' => [
                 'create' => $request->user()->can('create order'),
+                'edit' => $request->user()->can('edit order'),
+                'delete' => $request->user()->can('delete order'),
             ],
         ]);
     }
