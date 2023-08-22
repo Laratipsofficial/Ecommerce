@@ -71,6 +71,11 @@ const submit = () => {
     <MarketingLayout>
         <Container>
             <Card>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600">
+                        {{ props.item.description }}
+                    </p>
+                </div>
                 <form @submit.prevent="submit" class="space-y-6">
                     <div class="grid grid-cols-2 gap-6">
 

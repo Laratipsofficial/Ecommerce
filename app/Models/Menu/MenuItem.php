@@ -23,10 +23,6 @@ class MenuItem extends Model
     ];
 
     protected $appends = [
-        'full_number',
-        'discount',
-        'current_price',
-        'active_discount_item',
     ];
 
 
@@ -44,45 +40,12 @@ class MenuItem extends Model
 
     public function getActiveDiscountItemAttribute()
     {
-        // first retrieve all the discounts that are active
-        // and have a discount item with the menu item id
-        $discounts = Discount::query()
-            ->where('starts_at', '<=', now())
-            ->where('ends_at', '>=', now())
-            ->whereHas('discountItems', function ($query) {
-                $query->where('menu_item_id', $this->id);
-            })
-            ->get();
-
-        // if there are no active discounts with a discount item with the menu item id
-        if ($discounts->isEmpty()) {
-            // return null
-            return null;
-        }
-
-        // return the discount item with the highest discount
-        $discount = $discounts->sortByDesc('discount')->first();
-
-        // return the discount item with menu item id and the discount item discount
-        return DiscountItem::query()
-            ->where('menu_item_id', $this->id)
-            ->where('discount', $discount->discount)
-            ->first();
+        return $this->discountItems->where('is_active', true)->sortByDesc('discount')->first();
     }
 
     public function getCurrentPriceAttribute(): float
     {
-        // get the current price of the menu item
-        // by setting the current price to the lowest price in the menu item discounts
-        $currentPrice = $this->price;
-
-        // if the menu item has a active discount item
-        if ($this->active_discount_item) {
-            // set the current price to the price of the active discount item
-            $currentPrice = $this->active_discount_item->discount;
-        }
-
-        return $currentPrice;
+        return $this->active_discount_item ? $this->active_discount_item->discount : $this->price;
     }
 
     public function getDiscountAttribute(): float

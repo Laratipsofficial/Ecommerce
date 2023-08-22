@@ -14,6 +14,7 @@ class MenuSectionResource extends JsonResource
             'name' => $this->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'menu_items' => MenuItemResource::collection($this->menuItems),
         ];
     }
 }

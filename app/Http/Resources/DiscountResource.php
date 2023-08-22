@@ -17,6 +17,8 @@ class DiscountResource extends JsonResource
             'ends_at' => $this->ends_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'is_active' => $this->getIsActiveAttribute(),
+            'discount_items' => DiscountItemResource::collection($this->discountItems),
         ];
     }
 }

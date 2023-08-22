@@ -46,16 +46,32 @@ class OrderItem extends Model
 
     public function getMenuItemNameAttribute()
     {
-        return $this->menuItem->name;
+        $menuItem = $this->menuItem()->first();
+
+        return $menuItem->name;
     }
 
     public function getMenuSideItemNameAttribute()
     {
-        return $this->menuSideItem->name;
+        $menuSideItem = $this->menuSideItem()->first();
+
+        return $menuSideItem->name;
     }
 
     public function getTotalPriceAttribute()
     {
         return $this->price * $this->quantity;
+    }
+
+    // query all the comments and order them by most used
+    // return a list of comments
+    public static function getComments()
+    {
+        return OrderItem::query()
+            ->select('comment')
+            ->groupBy('comment')
+            ->orderByRaw('COUNT(*) DESC')
+            ->get()
+            ->pluck('comment');
     }
 }

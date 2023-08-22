@@ -9,8 +9,7 @@ class DiscountItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'discount' => ['required'],
-            'discount_id' => ['required'],
+            'discount' => ['required', 'numeric','min:0'],
             'menu_item_id' => ['required'],
         ];
     }

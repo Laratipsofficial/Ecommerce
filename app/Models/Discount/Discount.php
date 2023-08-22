@@ -36,4 +36,12 @@ class Discount extends Model
     {
         return $this->starts_at <= now() && $this->ends_at >= now();
     }
+
+    // get all active discounts
+    public function scopeActive($query)
+    {
+        return $query
+            ->where('starts_at', '<=', now())
+            ->where('ends_at', '>=', now());
+    }
 }

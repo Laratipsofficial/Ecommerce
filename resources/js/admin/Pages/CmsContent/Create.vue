@@ -36,11 +36,11 @@ const props = defineProps({
 });
 
 const form = useForm({
-    title: props.item.name ?? "",
+    title: props.item.title ?? "",
     slug: props.item.slug ?? "",
-    seoTitle: props.item.seo_title ?? "",
-    seoDescription: props.item.seo_description ?? "",
-    displayName: props.item.display_name ?? "",
+    seoTitle: props.item.seoTitle ?? "",
+    seoDescription: props.item.seoDescription ?? "",
+    displayName: props.item.displayName ?? "",
     culture: props.item.culture ?? "nl",
     content: props.item.content ?? "",
 });

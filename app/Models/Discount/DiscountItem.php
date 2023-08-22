@@ -61,4 +61,9 @@ class DiscountItem extends Model
     {
         return true;
     }
+
+    public function getMenuItemNameAttribute()
+    {
+        return $this->menuItem->name;
+    }
 }

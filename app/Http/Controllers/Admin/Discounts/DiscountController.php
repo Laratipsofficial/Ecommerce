@@ -13,15 +13,14 @@ use Inertia\Inertia;
 
 class DiscountController extends Controller
 {
-
     private string $routeResourceName = 'discounts';
 
     public function __construct()
     {
-        $this->middleware('can:view Discounts list')->only('index');
-        $this->middleware('can:create Discount')->only(['create', 'store']);
-        $this->middleware('can:update,Discount')->only(['edit', 'update']);
-        $this->middleware('can:delete,Discount')->only('destroy');
+        $this->middleware('can:view discounts list')->only('index');
+        $this->middleware('can:create discount')->only(['create', 'store']);
+        $this->middleware('can:update,discount')->only(['edit', 'update']);
+        $this->middleware('can:delete,discount')->only('destroy');
     }
 
     public function index(Request $request)
@@ -32,7 +31,7 @@ class DiscountController extends Controller
 
         $menuSections = MenuSection::all();
 
-        return Inertia::render('Menus/Items/Index', [
+        return Inertia::render('Discounts/Index', [
             'title' => 'Discounts',
             'items' => DiscountResource::collection($Discounts),
             'menuSections' => MenuSectionResource::collection($menuSections),
@@ -40,6 +39,18 @@ class DiscountController extends Controller
                 [
                     'label' => 'Name',
                     'name' => 'name',
+                ],
+                [
+                    'label' => 'Active',
+                    'name' => 'is_active',
+                ],
+                [
+                    'label' => 'Starts At',
+                    'name' => 'starts_at',
+                ],
+                [
+                    'label' => 'Ends At',
+                    'name' => 'ends_at',
                 ],
                 [
                     'label' => 'Actions',

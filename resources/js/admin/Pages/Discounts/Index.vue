@@ -25,7 +25,7 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    parent: {
+    discount: {
         type: Object,
         default: () => ({}),
     },
@@ -91,12 +91,26 @@ const createRoute = computed(() => {
                        :items="items">
                     <template v-slot="{ item }">
                         <Td>
-                            <div class="whitespace-pre-wrap w-64">
+                            <div class="whitespace-pre-wrap">
                                 {{ item.name }}
                             </div>
                         </Td>
                         <Td>
-                            <Actions :edit-link="route(`admin.${routeResourceName}.edit`, [parent.id, item.id])"
+                            <div class="whitespace-pre-wrap">
+                                {{ item.is_active }}
+                            </div>
+                        </Td>
+                        <Td>
+                            <div class="whitespace-pre-wrap">
+                                {{ item.starts_at }}
+                            </div>
+                        </Td>
+                        <Td>
+                            {{ item.ends_at }}
+                        </Td>
+                        <Td>
+                            <Button :href="route(`admin.${routeResourceName}.items.index`, item.id)">Items</Button>
+                            <Actions :edit-link="route(`admin.${routeResourceName}.edit`, item.id)"
                                      :show-edit="can.edit"
                                      :show-delete="can.delete"
                                      @deleteClicked="showDeleteModal(item)" />

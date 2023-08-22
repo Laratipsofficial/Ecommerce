@@ -17,23 +17,23 @@ defineProps({
 <template>
     <MarketingLayout>
         <div class="marketing-content min-h-full text-center justify-center space-y-6">
-            <h1 class="text-4xl font-bold">Thank you for your order!</h1>
-            <p class="text-2xl font-bold">Your order number is: {{ item.id }}</p>
+
 
 <!--            SMALL column for the qr code centered-->
             <Container>
                 <div class="mt-8 mb-2 justify-center">
                     <PdfExporter>
-                        <h1 class="text-2xl font-bold">
-                            Please show this QR code to the staff.</h1>
+                        <h1 class="text-4xl font-bold">Thank you for your order!</h1>
+                        <p class="text-2xl font-bold">Your order number is: {{ item.id }}</p>
+                        <br/>
+                        <p class="text-2xl font-bold">Please show this QR code to the staff.</p>
+                        <p class="text-2xl font-bold">Your order will be ready in 30 minutes.</p>
+                        <p class="text-2xl font-bold">Please pay at the counter.</p>
                         <br/>
                         <QrcodeVue class="qr-wrapper" :render-as="'canvas'" :value="JSON.stringify(item, null)" :size="400"></QrcodeVue>
                     </PdfExporter>
                 </div>
             </Container>
-            <p class="text-2xl font-bold">Please show this QR code to the staff.</p>
-            <p class="text-2xl font-bold">Your order will be ready in 30 minutes.</p>
-            <p class="text-2xl font-bold">Please pay at the counter.</p>
         </div>
     </MarketingLayout>
 </template>

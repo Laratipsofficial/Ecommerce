@@ -20,6 +20,7 @@ class MenuItemResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'full_number' => $this->full_number,
+            'current_price' => $this->getCurrentPriceAttribute(),
         ];
     }
 }

@@ -107,7 +107,7 @@ const { filters, isLoading, isFilled } = useFilters({
                         </Td>
                         <Td>
                             <div class="whitespace-pre-wrap w-64">
-                                {{ item.price }}
+                                € {{ item.current_price }}
                             </div>
                         </Td>
                         <Td>

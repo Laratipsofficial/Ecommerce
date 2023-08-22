@@ -10,6 +10,9 @@ class OrderController extends Controller
 {
     public function show(Order $order)
     {
+        // also add items
+        $order->load('items');
+
         return Inertia::render('TakeAway/Orders/Confirmation', [
             'item' => $order,
         ]);

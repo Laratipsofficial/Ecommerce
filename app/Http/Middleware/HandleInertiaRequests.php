@@ -86,43 +86,31 @@ class HandleInertiaRequests extends Middleware
                 'isVisible' => $request->user()?->can('view users module'),
             ],
             [
-                'label' => 'Categories',
-                'url' => route('admin.categories.index'),
-                'isActive' => $request->routeIs('admin.categories.*'),
-                'isVisible' => $request->user()?->can('view categories module'),
-            ],
-            [
-                'label' => 'Products',
-                'url' => route('admin.products.index'),
-                'isActive' => $request->routeIs('admin.products.*'),
-                'isVisible' => $request->user()?->can('view products module'),
-            ],
-            [
                 'label' => 'Tables',
                 'url' => route('admin.tables.index'),
                 'isActive' => $request->routeIs('admin.tables.*'),
                 'isVisible' => $request->user()?->can('view tables module'),
             ],
             [
-                'label' => 'CMS Content',
+                'label' => 'Content',
                 'url' => route('admin.content.index'),
                 'isActive' => $request->routeIs('admin.content.pages.*'),
                 'isVisible' => $request->user()?->can('view cms content module'),
             ],
             [
-                'label' => 'Menu Items',
+                'label' => 'Items',
                 'url' => route('admin.menus-items.index'),
                 'isActive' => $request->routeIs('admin.menus-items.*'),
                 'isVisible' => $request->user()?->can('view menu items module'),
             ],
             [
-                'label' => 'Menu Sections',
+                'label' => 'Sections',
                 'url' => route('admin.menus-sections.index'),
                 'isActive' => $request->routeIs('admin.menus-sections.*'),
                 'isVisible' => $request->user()?->can('view menu sections module'),
             ],
             [
-                'label' => 'Menu Side Items',
+                'label' => 'Side Items',
                 'url' => route('admin.menus-side-items.index'),
                 'isActive' => $request->routeIs('admin.menus-side-items.*'),
                 'isVisible' => $request->user()?->can('view menu side items module'),
@@ -133,10 +121,18 @@ class HandleInertiaRequests extends Middleware
                 'isActive' => $request->routeIs('admin.discounts.*'),
                 'isVisible' => $request->user()?->can('view menu discounts module'),
             ],
+            [
+                'label' => 'Orders',
+                'url' => route('admin.orders.index'),
+                'isActive' => $request->routeIs('admin.orders.*'),
+                'isVisible' => $request->user()?->can('view orders module'),
+            ]
         ];
     }
 
     public function getFrontMenu(Request $request){
+        $currentLocale = session('locale', 'nl');
+
         $baseMenu = [
                 [
                 'label' => 'Home',
@@ -144,8 +140,15 @@ class HandleInertiaRequests extends Middleware
                 'isActive' => $request->routeIs('home'),
                 'isVisible' => true,
                 ],
-                [
+            [
                 'label' => 'Menu',
+                'url' => route('menu'),
+                'isActive' => $request->routeIs('takeaway.menus.*'),
+                'isVisible' => true,
+            ],
+            // label based on the current locale
+                [
+                'label' => $currentLocale == 'nl' ? 'Bestellen' : 'Order',
                 'url' => route('takeaway.menus.index'),
                 'isActive' => $request->routeIs('takeaway.menus.*'),
                 'isVisible' => true,

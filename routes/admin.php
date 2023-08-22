@@ -12,9 +12,12 @@ use App\Http\Controllers\Admin\Identity\RolesController;
 use App\Http\Controllers\Admin\Menus\MenuItemController;
 use App\Http\Controllers\Admin\Menus\MenuSectionController;
 use App\Http\Controllers\Admin\Menus\MenuSideItemController;
+use App\Http\Controllers\Admin\Orders\OrdersController;
+use App\Http\Controllers\Admin\Orders\OrdersItemsController;
 use App\Http\Controllers\Admin\Products\ProductsController;
 use App\Http\Controllers\Admin\Tables\TableController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\TakeAway\OrderController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -63,6 +66,17 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('discounts.items', DiscountItemController::class)->parameters([
             'discounts' => 'discount',
             'items' => 'discountItem'
+        ]);
+
+        // orders resource
+        Route::resource('orders', OrdersController::class)->parameters([
+            'orders' => 'order'
+        ]);
+
+        // order items
+        Route::resource('orders.items', OrdersItemsController::class)->parameters([
+            'orders' => 'order',
+            'items' => 'orderItem'
         ]);
 });
 

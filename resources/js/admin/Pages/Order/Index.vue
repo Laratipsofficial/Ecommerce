@@ -10,13 +10,12 @@ import Td from "@/Components/Table/Td.vue";
 import Actions from "@/Components/Table/Actions.vue";
 import Button from "@/Components/Button.vue";
 import Modal from "@/Components/Modal.vue";
-import Label from "@/Components/Label.vue";
-import Input from "@/Components/Input.vue";
 import AddNew from "@/Components/AddNew.vue";
-import Filters from "./Filters.vue";
+
 
 import useDeleteItem from "@/Composables/useDeleteItem.js";
 import useFilters from "@/Composables/useFilters.js";
+import Filters from "@/Pages/Order/Filters.vue";
 
 const props = defineProps({
     title: {
@@ -31,6 +30,18 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    orderTypes: {
+        type: Array,
+        default: () => [],
+    },
+    orderStatuses: {
+        type: Array,
+        default: () => [],
+    },
+    tables: {
+        type: Array,
+        default: () => [],
+    },
     filters: {
         type: Object,
         default: () => ({}),
@@ -40,7 +51,6 @@ const props = defineProps({
         required: true,
     },
     can: Object,
-    rootCategories: Array,
 });
 
 const {
@@ -77,7 +87,11 @@ const { filters, isLoading, isFilled } = useFilters({
 
                 <template #filters>
                     <Filters v-model="filters"
-                             :categories="rootCategories" />
+                             :orderStatuses="orderStatuses"
+                                :orderTypes="orderTypes"
+                                :tables="tables"
+
+                    />
                 </template>
             </AddNew>
 
@@ -88,29 +102,39 @@ const { filters, isLoading, isFilled } = useFilters({
                        :items="items">
                     <template v-slot="{ item }">
                         <Td>
-                            {{ item.name }}
+                            <div class="whitespace-pre-wrap ">
+                                {{ item.id }}
+                            </div>
                         </Td>
                         <Td>
-                            <Button v-if="item.children_count>0"
-                                    :href="route(`admin.${routeResourceName}.index`, {parentId: item.id})"
-                                    small>
-                                {{ item.children_count }}
-                            </Button>
-                            <span v-else>{{ item.children_count }}</span>
+                            <div class="whitespace-pre-wrap">
+                                {{ item.status?.name }}
+                            </div>
                         </Td>
                         <Td>
-                            <Button :color="item.active ? 'green' : 'red'"
-                                    small>
-                                {{ item.active ? 'Active' : 'Inactive' }}
-                            </Button>
+                            <div class="whitespace-pre-wrap ">
+                                {{ item.type?.name }}
+                            </div>
                         </Td>
                         <Td>
-                            {{ item.created_at_formatted }}
+                            <div class="whitespace-pre-wrap ">
+                                {{ item.table?.number ?? 'No table' }}
+                            </div>
                         </Td>
                         <Td>
+                            <div class="whitespace-pre-wrap ">
+                                €{{ item.total_price }}
+                            </div>
+                        </Td>
+                        <Td>
+                            <div class="whitespace-pre-wrap w-64">
+                                {{ item.created_at }}
+                            </div>
+                        </Td>
+                        <Td>
+<!--                            order items -->
+                            <a :href="route(`admin.orders.items.index`, {id: item.id})">Order items</a>
                             <Actions :edit-link="route(`admin.${routeResourceName}.edit`, {id: item.id})"
-                                     :show-edit="item.can.edit"
-                                     :show-delete="item.can.delete"
                                      @deleteClicked="showDeleteModal(item)" />
                         </Td>
                     </template>
@@ -120,8 +144,10 @@ const { filters, isLoading, isFilled } = useFilters({
     </BreezeAuthenticatedLayout>
 
     <Modal v-model="deleteModal"
-           :title="`Delete ${itemToDelete.name}`">
+           :title="`Delete ${itemToDelete.title}`">
         Are you sure you want to delete this item?
+
+        {{ itemToDelete.id}}
 
         <template #footer>
             <Button @click="handleDeleteItem"

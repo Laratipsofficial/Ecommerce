@@ -25,6 +25,8 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "@headlessui/vue": "^1.7.16",
+        "@heroicons/vue": "^2.0.18",
         "@tinymce/tinymce-vue": "^4.0.7",
         "dropzone": "^6.0.0-beta.2",
         "html2pdf.js": "^0.10.1",

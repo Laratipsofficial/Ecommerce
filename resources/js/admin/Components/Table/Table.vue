@@ -35,7 +35,7 @@ defineProps({
                             :key="item.id">
                             <slot :item="item"></slot>
                         </tr>
-                        <tr v-if="items.data.length === 0">
+                        <tr v-if="items?.data?.length === 0">
                             <Td :colspan="headers.length">
                                 No data available.
                             </Td>
@@ -46,8 +46,8 @@ defineProps({
         </div>
     </div>
 
-    <div v-if="items.meta.links.length>3"
+    <div v-if="items?.meta?.links?.length > 3"
          class="py-4">
-        <Pagination :links="items.meta.links" />
+        <Pagination :links="items?.meta?.links" />
     </div>
 </template>

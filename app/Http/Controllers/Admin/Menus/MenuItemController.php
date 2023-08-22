@@ -74,6 +74,10 @@ class MenuItemController extends Controller
                     'name' => 'price',
                 ],
                 [
+                    'label' => 'Current Price',
+                    'name' => 'current_price',
+                ],
+                [
                     'label' => 'Actions',
                     'name' => 'actions',
                     'align' => 'center',

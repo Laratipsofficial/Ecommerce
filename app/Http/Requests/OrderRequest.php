@@ -9,11 +9,10 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'status_id' => ['nullable'],
-            'type_id' => ['nullable'],
-            'price' => ['nullable'],
-            'discount' => ['required'],
-            'comment' => ['required'],
+            'status_id' => ['required'],
+            'type_id' => ['required'],
+            'table_id' => ['nullable'],
+            'comment' => ['nullable'],
         ];
     }
 

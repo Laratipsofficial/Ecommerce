@@ -16,6 +16,9 @@ class DiscountItemResource extends JsonResource
             'menu_item_id' => $this->menu_item_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'menu_item' => MenuItemResource::collection($this->whenLoaded('menuItem')),
+            'menu_item_name' => $this->getMenuItemNameAttribute(),
+            'is_active' => $this->getIsActiveAttribute(),
         ];
     }
 }

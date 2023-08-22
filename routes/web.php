@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\MarketingController;
-use App\Http\Controllers\TakeAway\CartController;
-use App\Http\Controllers\TakeAway\HistoryController;
-use App\Http\Controllers\TakeAway\MenuController;
+use App\Http\Controllers\Front\MarketingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

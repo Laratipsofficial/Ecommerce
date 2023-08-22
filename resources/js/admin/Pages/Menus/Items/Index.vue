@@ -92,18 +92,23 @@ const { filters, isLoading, isFilled } = useFilters({
                        :items="items">
                     <template v-slot="{ item }">
                         <Td>
-                            <div class="whitespace-pre-wrap w-64">
+                            <div class="whitespace-pre-wrap">
                                 {{ item.full_number }}
                             </div>
                         </Td>
                         <Td>
-                            <div class="whitespace-pre-wrap w-64">
+                            <div class="whitespace-pre-wrap ">
                                 {{ item.name }}
                             </div>
                         </Td>
                         <Td>
-                            <div class="whitespace-pre-wrap w-64">
+                            <div class="whitespace-pre-wrap ">
                                 {{ item.price }}
+                            </div>
+                        </Td>
+                        <Td>
+                            <div class="whitespace-pre-wrap">
+                                {{ item.current_price }}
                             </div>
                         </Td>
                         <Td>

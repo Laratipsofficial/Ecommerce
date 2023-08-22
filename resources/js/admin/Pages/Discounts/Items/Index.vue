@@ -22,7 +22,7 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    parent: {
+    discount: {
         type: Object,
         default: () => ({}),
     },
@@ -41,8 +41,12 @@ const props = defineProps({
     can: Object,
 });
 
+// log discount id
+console.log(props.discount.id + 'discount id');
+
 const {
     deleteModal,
+    showDeleteModalChild,
     itemToDelete,
     isDeleting,
     showDeleteModal,
@@ -53,11 +57,16 @@ const {
 
 /// admin/discounts/3/items
 const createRoute = computed(() => {
-    return "/admin/discounts/" + props.parent.id + "/items/create";
+    return route("admin.discounts.items.create", {
+        discount: props.discount.id,
+    });
 });
 
 const editRoute = (item) => {
-    return "/admin/discounts/" + props.parent.id + "/items/" + item.id + "/edit";
+    return route("admin.discounts.items.edit", {
+        discount: props.discount.id,
+        discountItem: item.id,
+    });
 };
 
 </script>
@@ -89,10 +98,26 @@ const editRoute = (item) => {
                             </div>
                         </Td>
                         <Td>
+                            <div class="whitespace-pre-wrap w-64">
+                                {{item}}
+                                {{ item.price }}
+                            </div>
+                        </Td>
+                        <Td>
+                            <div class="whitespace-pre-wrap w-64">
+                                {{ item.discount }}
+                            </div>
+                        </Td>
+                        <Td>
+                            <div class="whitespace-pre-wrap w-64">
+                                {{ item.discounted_price }}
+                            </div>
+                        </Td>
+                        <Td>
                             <Actions :edit-link="editRoute(item)"
                                      :show-edit="can.edit"
                                      :show-delete="can.delete"
-                                     @deleteClicked="showDeleteModal(item)" />
+                                     @deleteClicked="showDeleteModalChild([props.discount.id, item.id, 'discount', 'discountItem'])" />
                         </Td>
                     </template>
                 </Table>
@@ -103,8 +128,6 @@ const editRoute = (item) => {
     <Modal v-model="deleteModal"
            :title="`Delete ${itemToDelete.name}`">
         Are you sure you want to delete this item?
-
-        {{ itemToDelete.id}}
 
         <template #footer>
             <Button @click="handleDeleteItem"

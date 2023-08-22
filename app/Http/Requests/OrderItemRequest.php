@@ -10,11 +10,11 @@ class OrderItemRequest extends FormRequest
     {
         return [
             'table_round' => ['nullable', 'integer'],
-            'order_id' => ['required', 'integer'],
             'menu_item_id' => ['required', 'integer'],
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'integer'],
             'menu_side_item_id' => ['nullable', 'integer'],
+            'comment' => 'nullable|string',
         ];
     }
 

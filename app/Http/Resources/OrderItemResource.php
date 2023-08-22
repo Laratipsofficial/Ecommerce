@@ -19,6 +19,13 @@ class OrderItemResource extends JsonResource
             'menu_side_item_id' => $this->menu_side_item_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'menu_item_name' => $this->menu_item_name,
+            'menu_side_item_name' => $this->menu_side_item_name,
+            'total_price' => $this->total_price,
+            'comment' => $this->comment,
+            'discount' => $this->discount,
+            'menuItem' => new MenuItemResource($this->whenLoaded('menuItem')),
+            'menuSideItem' => new MenuSideItemResource($this->whenLoaded('menuSideItem')),
         ];
     }
 }

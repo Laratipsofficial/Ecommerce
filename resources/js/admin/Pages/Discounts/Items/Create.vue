@@ -16,6 +16,7 @@ import EditorGroup from "@/Components/EditorGroup.vue";
 import ImageUpload from "@/Components/ImageUpload.vue";
 import CrossIcon from "@/Components/Icons/Cross.vue";
 import { Inertia } from "@inertiajs/inertia";
+import ComboBoxGroup from "@/Components/ComboBoxGroup.vue";
 
 const props = defineProps({
     edit: {
@@ -29,6 +30,14 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    discount: {
+        type: Object,
+        default: () => ({}),
+    },
+    menuItems: {
+        type: Array,
+        default: () => [],
+    },
     routeResourceName: {
         type: String,
         required: true,
@@ -36,17 +45,19 @@ const props = defineProps({
 });
 
 const form = useForm({
-    name: props.item.name ?? "",
+    menu_item_id: props.item.menu_item_id ?? "",
+    discount: props.item.discount ?? "",
 });
 
 const submit = () => {
     props.edit
         ? form.put(
               route(`admin.${props.routeResourceName}.update`, {
-                  id: props.item.id,
+                  discount: props.discount.id,
+                  discountItem: props.item.id,
               })
           )
-        : form.post(route(`admin.${props.routeResourceName}.store`));
+        : form.post(route(`admin.${props.routeResourceName}.store`, { discount: props.discount.id }));
 };
 </script>
 
@@ -66,9 +77,16 @@ const submit = () => {
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-2 gap-6">
 
-                        <InputGroup label="Name"
-                                    v-model="form.name"
-                                    :error-message="form.errors.name"
+                        <ComboBoxGroup label="Menu Item"
+                                     v-model="form.menu_item_id"
+                                     :error-message="form.errors.menu_item_id"
+                                     :items="menuItems"
+                                     required />
+
+                        <InputGroup label="Discount"
+                                    type="number"
+                                    v-model="form.discount"
+                                    :error-message="form.errors.discount"
                                     required />
                     </div>
 

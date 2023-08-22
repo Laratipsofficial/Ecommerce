@@ -17,6 +17,7 @@ import ImageUpload from "@/Components/ImageUpload.vue";
 import CrossIcon from "@/Components/Icons/Cross.vue";
 import { Inertia } from "@inertiajs/inertia";
 
+import Table from "@/Components/Table/Table.vue";
 const props = defineProps({
     edit: {
         type: Boolean,
@@ -29,7 +30,15 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
-    sideDishes: {
+    orderStatuses: {
+        type: Array,
+        default: () => [],
+    },
+    tables: {
+        type: Array,
+        default: () => [],
+    },
+    orderTypes: {
         type: Array,
         default: () => [],
     },
@@ -40,26 +49,20 @@ const props = defineProps({
 });
 
 const form = useForm({
-    quantity: props.item.quantity ?? "",
-    menu_side_item_id: props.item.menu_side_item_id ?? "",
+    type_id: props.item.type_id ?? "",
+    status_id: props.item.status_id ?? "",
+    table_id: props.item.table_id ?? "",
     comment: props.item.comment ?? "",
 });
 
-const sideDishOptions = computed(() => {
-    return props.sideDishes.map((menuSection) => {
-        return {
-            name: menuSection.name,
-            id: menuSection.id,
-        };
-    });
-});
-
 const submit = () => {
-    form.put(
-              route(`tablets.${props.routeResourceName}.update`, {
+    props.edit
+        ? form.put(
+              route(`admin.${props.routeResourceName}.update`, {
                   id: props.item.id,
               })
           )
+        : form.post(route(`admin.${props.routeResourceName}.store`));
 };
 </script>
 
@@ -76,33 +79,34 @@ const submit = () => {
 
         <Container>
             <Card>
-<!--                description text-->
-                <div class="mb-4">
-                    <p class="text-sm text-gray-600">
-                        {{ props.item.description }}
-                    </p>
-                </div>
                 <form @submit.prevent="submit" class="space-y-6">
                     <div class="grid grid-cols-2 gap-6">
 
-                        <InputGroup label="Quantity"
-                                    type="number"
-                                    v-model="form.quantity"
-                                    :error-message="form.errors.quantity"
-                                    required />
-
-                        <SelectGroup label="Side Item"
-                                     v-model="form.menu_side_item_id"
-                                     :error-message="form.errors.menu_side_item_id"
-                                     :items="sideDishOptions"
+                        <SelectGroup label="Type"
+                                     v-model="form.type_id"
+                                     :error-message="form.errors.type_id"
+                                     :items="orderTypes"
                                      required />
+
+                        <SelectGroup label="Status"
+                                        v-model="form.status_id"
+                                        :error-message="form.errors.status_id"
+                                        :items="orderStatuses"
+                                        required />
+
+                        <SelectGroup label="Table"
+                                        v-model="form.table_id"
+                                        :error-message="form.errors.table_id"
+                                        :items="tables"
+                                     :itemText="'number'"
+                                        required />
                     </div>
 
-                    <div class="grid grid-cols-1 gap-6">
-                        <InputGroup label="Comment"
+                    <div class="grid gap-6">
+                        <EditorGroup label="Comment"
                                      v-model="form.comment"
                                      :error-message="form.errors.comment"
-                                     required />
+                                      />
                     </div>
 
                     <div class="mt-4">
@@ -111,6 +115,11 @@ const submit = () => {
                         </Button>
                     </div>
                 </form>
+            </Card>
+        </Container>
+        <Container>
+            <Card>
+<!--                Table of the order item-->
             </Card>
         </Container>
     </BreezeAuthenticatedLayout>
