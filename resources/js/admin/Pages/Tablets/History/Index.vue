@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import {Head, useForm} from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import Container from "@/Components/Container.vue";
@@ -11,8 +11,6 @@ import Actions from "@/Components/Table/Actions.vue";
 import Button from "@/Components/Button.vue";
 import Modal from "@/Components/Modal.vue";
 import AddNew from "@/Components/AddNew.vue";
-
-
 import useDeleteItem from "@/Composables/useDeleteItem.js";
 import useFilters from "@/Composables/useFilters.js";
 
@@ -54,6 +52,25 @@ const { filters, isLoading, isFilled } = useFilters({
     filters: props.filters,
     routeResourceName: props.routeResourceName,
 });
+
+
+const form = useForm({
+    order_round: null,
+    order_item_id: null,
+});
+
+const reorderRound = (round) => {
+    form.order_round = round;
+
+    form.post(route("tablets.history.store", round));
+};
+
+const reorderItem = (item) => {
+    form.order_item_id = item.id;
+
+    form.post(route("tablets.history.store", item));
+};
+
 </script>
 
 <template>
@@ -67,93 +84,46 @@ const { filters, isLoading, isFilled } = useFilters({
             </h2>
         </template>
 
-        {{ items}}
-
         <Container>
             <Container>
 <!--                make a card for each item every item can be reordered(form) and has a list of order items-->
-                <template v-for="(item, index) in items" :key="index">
-                    <Card>
-                        <template #header>
-                            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                               Round {{ index }}
-                            </h2>
-                            <div class="flex justify-end">
-                                <Actions>
-                                    <template #trigger>
-                                        <Button>
-                                            Actions
-                                        </Button>
-                                    </template>
-                                    <template #content>
-                                        <Button @click="showDeleteModal(item)">
-                                            Delete
-                                        </Button>
-                                    </template>
-                                </Actions>
+                <div v-for="(roundItems, roundNumber) in items" :key="roundNumber" class="mb-4 border p-4 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-2">Round {{ roundNumber }}</h2>
+                    <div v-for="roundItem in roundItems" :key="roundItem.id" class="mb-2 border-t pt-2">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2 md:col-span-1 text-lg font-medium">
+                                <span class="text-gray-600">Menu Item:</span> {{ roundItem.menu_item_name }}
                             </div>
-                        </template>
-
-
-                        <template #body>
-                            {{item}}
-                            <Table :headers="headers" :items="item">
-                                <template #default>
-                                    <Td>
-                                        {{ item.menu_item_name}}
-                                    </Td>
-                                    <Td>
-                                        {{ item.price }}
-                                    </Td>
-                                    <Td>
-                                        {{ item.description }}
-                                    </Td>
-                                    <Td>
-                                        {{ item.menu_section.name }}
-                                    </Td>
-                                    <Td>
-                                        {{ item.number }}
-                                    </Td>
-                                    <Td>
-                                        {{ item.number_addition }}
-                                    </Td>
-                                    <Td>
-                                        <Actions>
-                                            <template #trigger>
-                                                <Button>
-                                                    Actions
-                                                </Button>
-                                            </template>
-                                            <template #content>
-                                                <Button @click="showDeleteModal(item)">
-                                                    Delete
-                                                </Button>
-                                            </template>
-                                        </Actions>
-                                    </Td>
-                                </template>
-                            </Table>
-                        </template>
-
-
-                    </Card>
-                </template>
+                            <div class="col-span-2 md:col-span-1 text-sm md:text-base">
+                                <span class="text-gray-400">Side Item:</span> {{ roundItem.menu_side_item_name }}
+                            </div>
+                            <div class="col-span-2 md:col-span-1 text-sm md:text-base">
+                                <span class="text-gray-400">Special Comment:</span> {{ roundItem.comment }}
+                            </div>
+                            <div class="col-span-2 md:col-span-1 text-lg font-medium">
+                                <span class="text-gray-600">Price:</span> €{{ roundItem.price }}
+                            </div>
+                            <div class="col-span-2 md:col-span-1 text-lg font-medium">
+                                <span class="text-gray-600">Quantity:</span> {{ roundItem.quantity }}X
+                            </div>
+                            <div class="col-span-2 md:col-span-1 text-lg font-medium">
+                                <span class="text-gray-600">Total:</span> €{{ roundItem.total_price }}
+                            </div>
+                            <div class="col-span-2 md:col-span-1">
+                                <Button @click="reorderItem(roundItem)"
+                                        class="text-blue-500 hover:underline">
+                                    Reorder Item
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button @click="reorderRound(roundNumber)" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                            Reorder Round {{ roundNumber }}
+                        </button>
+                    </div>
+                </div>
             </Container>
         </Container>
     </BreezeAuthenticatedLayout>
-
-    <Modal v-model="deleteModal"
-           :title="`Delete ${itemToDelete.title}`">
-        Are you sure you want to delete this item?
-
-        {{ itemToDelete.id}}
-
-        <template #footer>
-            <Button @click="handleDeleteItem"
-                    :disabled="isDeleting">
-                <span v-if="isDeleting">Deleting</span>
-                <span v-else>Delete</span>
-            </Button>
-        </template>
-    </Modal>
 </template>
