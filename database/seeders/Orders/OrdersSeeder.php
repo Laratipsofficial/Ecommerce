@@ -6,6 +6,7 @@ use App\Models\Menu\MenuItem;
 use App\Models\Menu\MenuSideItem;
 use App\Models\Orders\Order;
 use App\Models\Orders\OrderItem;
+use App\Models\Tables\Table;
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
@@ -31,7 +32,7 @@ class OrdersSeeder extends Seeder
                 'price' => $faker->randomFloat(2, 10, 100),
                 'discount' => $faker->randomFloat(2, 0, 20),
                 'comment' => $faker->sentence(),
-                'table_id' => $typeId === 1 ? $faker->numberBetween(1, 20) : null,
+                'table_id' => $typeId === 1 ? Table::inRandomOrder()->first()->id : null,
                 'created_at' => $this->getRandomCreatedAt($statusId),
             ]);
 

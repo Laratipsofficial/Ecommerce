@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->string('status_id')->nullable();
             $table->string('type_id')->nullable();
             $table->string('price')->nullable();
+            $table->string('discount')->nullable();
             $table->string('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();

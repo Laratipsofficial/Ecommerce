@@ -16,6 +16,8 @@ import AddNew from "@/Components/AddNew.vue";
 import useDeleteItem from "@/Composables/useDeleteItem.js";
 import useFilters from "@/Composables/useFilters.js";
 import Filters from "@/Pages/Order/Filters.vue";
+import DateDisplay from "@/Components/DateDisplay.vue";
+import PriceDisplay from "@/Components/PriceDisplay.vue";
 
 const props = defineProps({
     title: {
@@ -112,6 +114,11 @@ const { filters, isLoading, isFilled } = useFilters({
                             </div>
                         </Td>
                         <Td>
+                            <div class="whitespace-pre-wrap">
+                                {{ item.item_count }}
+                            </div>
+                        </Td>
+                        <Td>
                             <div class="whitespace-pre-wrap ">
                                 {{ item.type?.name }}
                             </div>
@@ -123,12 +130,13 @@ const { filters, isLoading, isFilled } = useFilters({
                         </Td>
                         <Td>
                             <div class="whitespace-pre-wrap ">
-                                €{{ item.total_price }}
+                                <PriceDisplay :price="item.total_price" />
                             </div>
                         </Td>
                         <Td>
-                            <div class="whitespace-pre-wrap w-64">
-                                {{ item.created_at }}
+                            <div class="whitespace-pre-wrap">
+
+                                <DateDisplay :date="item.created_at" />
                             </div>
                         </Td>
                         <Td>
