@@ -3,7 +3,7 @@
         <div id="pdfContent" ref="pdfContent" class="pdfContent p-6 border">
             <slot></slot>
         </div>
-        <button @click="exportToPdf" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full absolute bottom-6 right-6">
+        <button @click="exportToPdf" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full absolute top-6 right-6">
             Export to PDF
         </button>
     </div>
@@ -28,7 +28,9 @@ export default {
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-                pagebreak: { mode: 'avoid-all' },
+                // if you want to add pagebreaks to avoid splitting page content
+                // add for css class pagebreak to break to next page
+                pagebreak:  { mode: '', after: '.pagebreak', avoid: '.avoid' },
             };
 
             const content = this.$refs.pdfContent;

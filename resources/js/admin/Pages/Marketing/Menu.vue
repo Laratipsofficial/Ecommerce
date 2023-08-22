@@ -32,7 +32,7 @@ const props = defineProps({
                 </header>
                 <main>
 
-                    <div class="menu-sections">
+                    <div class="menu-sections pagebreak">
                         <h2>Menu</h2>
 <!--                        list of sections -->
                         <div class="menu-section" v-for="section in props.sections">
@@ -50,7 +50,7 @@ const props = defineProps({
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="discounts pagebreak">
                         <h2>Discounts</h2>
                         <ul class="list-none">
                             <li class="discount list-none" v-for="discount in props.discounts">
@@ -128,5 +128,14 @@ const props = defineProps({
     margin-bottom: 1rem;
     line-height: 1.5;
 }
+
+@media all {
+    /*.page-break  { display: none; }*/
+}
+
+@media print {
+    .page-break  { display: block; page-break-before: always; }
+}
+
 
 </style>
