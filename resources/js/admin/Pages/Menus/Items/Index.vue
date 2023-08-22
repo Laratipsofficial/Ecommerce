@@ -16,6 +16,7 @@ import AddNew from "@/Components/AddNew.vue";
 import useDeleteItem from "@/Composables/useDeleteItem.js";
 import useFilters from "@/Composables/useFilters.js";
 import Filters from "@/Pages/Menus/Items/Filters.vue";
+import PriceDisplay from "@/Components/PriceDisplay.vue";
 
 const props = defineProps({
     title: {
@@ -45,8 +46,6 @@ const props = defineProps({
     can: Object,
 });
 
-
-console.log(props.menuSections);
 const {
     deleteModal,
     itemToDelete,
@@ -103,12 +102,12 @@ const { filters, isLoading, isFilled } = useFilters({
                         </Td>
                         <Td>
                             <div class="whitespace-pre-wrap ">
-                                {{ item.price }}
+                                <PriceDisplay :price="item.price" />
                             </div>
                         </Td>
                         <Td>
                             <div class="whitespace-pre-wrap">
-                                {{ item.current_price }}
+                                <PriceDisplay :price="item.current_price" />
                             </div>
                         </Td>
                         <Td>

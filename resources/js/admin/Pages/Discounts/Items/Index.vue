@@ -99,7 +99,6 @@ const editRoute = (item) => {
                         </Td>
                         <Td>
                             <div class="whitespace-pre-wrap w-64">
-                                {{item}}
                                 {{ item.price }}
                             </div>
                         </Td>
